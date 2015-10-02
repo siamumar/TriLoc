@@ -1,0 +1,3 @@
+[submodule "TinyGarbled"]
+	path = TinyGarbled
+	url = https://github.com/siamumar/TinyGarbled
