@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="C:/Users/Rice/Dropbox/TriangleLocalization/NetList/intersections_2/intersections_tb_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="intersections_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="47" />
+   <wvobject fp_name="/intersections_tb/x1E" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">x1E[7:0]</obj_property>
+      <obj_property name="ObjectShortName">x1E[7:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/y1E" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">y1E[7:0]</obj_property>
+      <obj_property name="ObjectShortName">y1E[7:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/x2E" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">x2E[7:0]</obj_property>
+      <obj_property name="ObjectShortName">x2E[7:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/y2E" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">y2E[7:0]</obj_property>
+      <obj_property name="ObjectShortName">y2E[7:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider69" type="divider">
+      <obj_property name="label">Wires</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/p" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">p[8:0]</obj_property>
+      <obj_property name="ObjectShortName">p[8:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/q" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">q[8:0]</obj_property>
+      <obj_property name="ObjectShortName">q[8:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/t" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">t[19:0]</obj_property>
+      <obj_property name="ObjectShortName">t[19:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/s" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">s[41:0]</obj_property>
+      <obj_property name="ObjectShortName">s[41:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/u" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">u[29:0]</obj_property>
+      <obj_property name="ObjectShortName">u[29:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/w_sqr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">w_sqr[61:0]</obj_property>
+      <obj_property name="ObjectShortName">w_sqr[61:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/w" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">w[30:0]</obj_property>
+      <obj_property name="ObjectShortName">w[30:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/xB_sqr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">xB_sqr[15:0]</obj_property>
+      <obj_property name="ObjectShortName">xB_sqr[15:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/yB_sqr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">yB_sqr[15:0]</obj_property>
+      <obj_property name="ObjectShortName">yB_sqr[15:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/xC_sqr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">xC_sqr[15:0]</obj_property>
+      <obj_property name="ObjectShortName">xC_sqr[15:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/yC_sqr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">yC_sqr[15:0]</obj_property>
+      <obj_property name="ObjectShortName">yC_sqr[15:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/rB_sqr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">rB_sqr[17:0]</obj_property>
+      <obj_property name="ObjectShortName">rB_sqr[17:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/rC_sqr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">rC_sqr[17:0]</obj_property>
+      <obj_property name="ObjectShortName">rC_sqr[17:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/p_sqr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">p_sqr[17:0]</obj_property>
+      <obj_property name="ObjectShortName">p_sqr[17:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/q_sqr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">q_sqr[17:0]</obj_property>
+      <obj_property name="ObjectShortName">q_sqr[17:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/t_sqr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">t_sqr[39:0]</obj_property>
+      <obj_property name="ObjectShortName">t_sqr[39:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/u_sqr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">u_sqr[59:0]</obj_property>
+      <obj_property name="ObjectShortName">u_sqr[59:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/pxB_sqr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">pxB_sqr[33:0]</obj_property>
+      <obj_property name="ObjectShortName">pxB_sqr[33:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/pyB_sqr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">pyB_sqr[33:0]</obj_property>
+      <obj_property name="ObjectShortName">pyB_sqr[33:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/prB_sqr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">prB_sqr[35:0]</obj_property>
+      <obj_property name="ObjectShortName">prB_sqr[35:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/ptxB" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ptxB[36:0]</obj_property>
+      <obj_property name="ObjectShortName">ptxB[36:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/qt" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">qt[28:0]</obj_property>
+      <obj_property name="ObjectShortName">qt[28:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/yB_p_sqr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">yB_p_sqr[25:0]</obj_property>
+      <obj_property name="ObjectShortName">yB_p_sqr[25:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/pxB" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">pxB[16:0]</obj_property>
+      <obj_property name="ObjectShortName">pxB[16:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/pqxB" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">pqxB[25:0]</obj_property>
+      <obj_property name="ObjectShortName">pqxB[25:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/rB_min_rC_sqr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">rB_min_rC_sqr[18:0]</obj_property>
+      <obj_property name="ObjectShortName">rB_min_rC_sqr[18:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/xC_min_xB_sqr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">xC_min_xB_sqr[16:0]</obj_property>
+      <obj_property name="ObjectShortName">xC_min_xB_sqr[16:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/yC_min_yB_sqr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">yC_min_yB_sqr[16:0]</obj_property>
+      <obj_property name="ObjectShortName">yC_min_yB_sqr[16:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/xC_min_xB_plus_yC_min_yB_sqr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">xC_min_xB_plus_yC_min_yB_sqr[17:0]</obj_property>
+      <obj_property name="ObjectShortName">xC_min_xB_plus_yC_min_yB_sqr[17:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/pyB_sqr_plus_pxB_sqr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">pyB_sqr_plus_pxB_sqr[34:0]</obj_property>
+      <obj_property name="ObjectShortName">pyB_sqr_plus_pxB_sqr[34:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/prB_sqr_plus_ptxB" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">prB_sqr_plus_ptxB[37:0]</obj_property>
+      <obj_property name="ObjectShortName">prB_sqr_plus_ptxB[37:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/pyB_sqr_plus_pxB_sqr_min_prB_sqr_plus_ptxB" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">pyB_sqr_plus_pxB_sqr_min_prB_sqr_plus_ptxB[38:0]</obj_property>
+      <obj_property name="ObjectShortName">pyB_sqr_plus_pxB_sqr_min_prB_sqr_plus_ptxB[38:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/yB_p_sqr_plus_pqxB" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">yB_p_sqr_plus_pqxB[26:0]</obj_property>
+      <obj_property name="ObjectShortName">yB_p_sqr_plus_pqxB[26:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/yB_p_sqr_plus_pqxB_min_qt_by_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">yB_p_sqr_plus_pqxB_min_qt_by_2[29:0]</obj_property>
+      <obj_property name="ObjectShortName">yB_p_sqr_plus_pqxB_min_qt_by_2[29:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/y1E_top" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">y1E_top[30:0]</obj_property>
+      <obj_property name="ObjectShortName">y1E_top[30:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/y2E_top" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">y2E_top[30:0]</obj_property>
+      <obj_property name="ObjectShortName">y2E_top[30:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/p_sqr_plus_q_sqr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">p_sqr_plus_q_sqr[18:0]</obj_property>
+      <obj_property name="ObjectShortName">p_sqr_plus_q_sqr[18:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/s_times_p_sqr_plus_q_sqr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">s_times_p_sqr_plus_q_sqr[60:0]</obj_property>
+      <obj_property name="ObjectShortName">s_times_p_sqr_plus_q_sqr[60:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/y1Eq" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">y1Eq[16:0]</obj_property>
+      <obj_property name="ObjectShortName">y1Eq[16:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/y2Eq" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">y2Eq[16:0]</obj_property>
+      <obj_property name="ObjectShortName">y2Eq[16:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/x1E_top" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">x1E_top[20:0]</obj_property>
+      <obj_property name="ObjectShortName">x1E_top[20:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/uut/x2E_top" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">x2E_top[20:0]</obj_property>
+      <obj_property name="ObjectShortName">x2E_top[20:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+</wave_config>
