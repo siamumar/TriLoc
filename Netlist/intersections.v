@@ -150,8 +150,9 @@ module intersections #(parameter N = 8)(
 	SUB_ #(.N(3*N+6), .M(3*N+6)) SUB10 (.A(yB_p_sqr_plus_pqxB_min_qt_by_2), .B(w[3*N+6:1]), .O(y2E_top));	//y2E_top : 3N+7
 	//assign	y1E = y1E_top/p_sqr_plus_q_sqr; // y1E : N+4
 	//assign	y2E = y2E_top/p_sqr_plus_q_sqr; // y2E : N+4
-	DIV_ #(.N(3*N+7), .M(2*N+3)) DIV1 (.A(y1E_top), .B(p_sqr_plus_q_sqr), .O(y1E));
-	DIV_ #(.N(3*N+7), .M(2*N+3)) DIV2 (.A(y2E_top), .B(p_sqr_plus_q_sqr), .O(y2E));
+	wire	[2*N+6:0]		temp1, temp2;
+	DIV_ #(.N(3*N+7), .M(2*N+3)) DIV1 (.A(y1E_top), .B(p_sqr_plus_q_sqr), .O({temp1, y1E}));
+	DIV_ #(.N(3*N+7), .M(2*N+3)) DIV2 (.A(y2E_top), .B(p_sqr_plus_q_sqr), .O({temp2, y2E}));
 	
 	//assign	y1Eq = y1E*q;
 	MULT_ #(.N(N), .M(N+1)) MUL20 (.A(y1E), .B(q), .O(y1Eq));
@@ -160,12 +161,13 @@ module intersections #(parameter N = 8)(
 
 	//assign	x1E = (2*y1Eq + t)/(2*p);
 	//assign	x2E = (2*y2Eq + t)/(2*p);
-	ADD_ #(.N(2*N+4), .M(2*N+1)) ADD9 (.A(t), .B({y1Eq, 1'b0}), .O(x1E_top)); //x1E_top : 2N+5
-	ADD_ #(.N(2*N+4), .M(2*N+1)) ADD10 (.A(t), .B({y2Eq, 1'b0}), .O(x2E_top)); //x2E_top : 2N+5
+	ADD_ #(.N(2*N+4), .M(2*N+2)) ADD9 (.A(t), .B({y1Eq, 1'b0}), .O(x1E_top)); //x1E_top : 2N+5
+	ADD_ #(.N(2*N+4), .M(2*N+2)) ADD10 (.A(t), .B({y2Eq, 1'b0}), .O(x2E_top)); //x2E_top : 2N+5
 	//assign	x1E = x1E_top/(2*p);
 	//assign	x2E = x2E_top/(2*p);
-	DIV_ #(.N(2*N+5), .M(N+2)) DIV3 (.A(x1E_top), .B(2*p), .O(x1E));
-	DIV_ #(.N(2*N+5), .M(N+2)) DIV4 (.A(x2E_top), .B(2*p), .O(x2E));
+	wire	[N+4:0]		temp3, temp4;
+	DIV_ #(.N(2*N+5), .M(N+2)) DIV3 (.A(x1E_top), .B({p, 1'b0}), .O({temp3, x1E}));
+	DIV_ #(.N(2*N+5), .M(N+2)) DIV4 (.A(x2E_top), .B({p, 1'b0}), .O({temp4, x2E}));
 
 
 endmodule
