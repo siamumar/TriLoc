@@ -28,6 +28,9 @@ x2 = (2*y2*(L(B).y - L(C).y) +  z)/(2*(L(C).x - L(B).x));
 
 [x1 y1; x2 y2]
 
+plot(x1, y1, 'bs')
+plot(x2, y2, 'bs')
+
 H = ((x1 - L(A).x)^2 + (y1 - L(A).y)^2);
 
 if (H <= r(A)^2)
@@ -55,6 +58,9 @@ x1 = (2*y1*(L(A).y - L(B).y) +  z)/(2*(L(B).x - L(A).x));
 x2 = (2*y2*(L(A).y - L(B).y) +  z)/(2*(L(B).x - L(A).x));
 
 [x1 y1; x2 y2]
+
+plot(x1, y1, 'bs')
+plot(x2, y2, 'bs')
 
 H = ((x1 - L(C).x)^2 + (y1 - L(C).y)^2);
 
@@ -84,6 +90,9 @@ x2 = (2*y2*(L(C).y - L(A).y) +  z)/(2*(L(A).x - L(C).x));
 
 [x1 y1; x2 y2]
 
+plot(x1, y1, 'bs')
+plot(x2, y2, 'bs')
+
 H = ((x1 - L(B).x)^2 + (y1 - L(B).y)^2);
 
 if (H <= r(B)^2)
@@ -103,8 +112,11 @@ V(M).y = mean([V(A).y, V(B).y, V(C).y]);
 [V(M).x V(M).y]
 
 plot (V(A).x, V(A).y, 'mo')
-plot (V(B).x, V(B).y, 'yo')
-plot (V(C).x, V(C).y, 'go')
+plot (V(B).x, V(B).y, 'mo')
+plot (V(C).x, V(C).y, 'mo')
+plot([V(A).x, V(B).x], [V(A).y, V(B).y], 'b')
+plot([V(B).x, V(C).x], [V(B).y, V(C).y], 'b')
+plot([V(C).x, V(A).x], [V(C).y, V(A).y], 'b')
 
 U = V(M);
 end
