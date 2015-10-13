@@ -1,10 +1,7 @@
 #include <iostream>
 #include <vector>
-#include <string>
-#include <unistd.h>
 #include "tri_loc.h"
 #include "util.h"
-#include "../TinyGarbled/eval_netlist/tcpip.h"
 
 using namespace std;
 
