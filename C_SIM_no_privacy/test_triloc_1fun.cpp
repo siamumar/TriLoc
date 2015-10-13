@@ -24,6 +24,8 @@ int main(){
 	rB = sqrt((Q.x - B.x)*(Q.x - B.x) + (Q.y - B.y)*(Q.y - B.y));
 	rC = sqrt((Q.x - C.x)*(Q.x - C.x) + (Q.y - C.y)*(Q.y - C.y));
 	
+	cout << rA << "\t" << rB << "\t" << rC << endl;
+	
 	D = intersection(B, rB, C, rC);
 	print_rect(D);
 	if (inside(D[0], A, rA)) M[0] = D[0];

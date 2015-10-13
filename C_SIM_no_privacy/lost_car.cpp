@@ -26,7 +26,7 @@ int lost_car(vector<int> &port){
 	vector<int> connfd(3);
 	for (int i = 0; i < 3; i++)
 		if ((connfd[i] = server_init(port[i])) == -1) {
-			cout << "Cannot open the socket in port " << port[i] << "with Car " << i << endl;
+			cout << "Cannot open the socket in port " << port[i] << " with Car " << i << endl;
 			return -1;
 		}
 	
@@ -41,12 +41,35 @@ int lost_car(vector<int> &port){
 	}
 	
 	int done; 
-	int ser = 0, cli = 1;
+	int init = 0, comp = 1, chk = 2;
 	for (int id = 0; id < 3; id++){
-		write(connfd[id], &ser, sizeof(int));
-		write(connfd[(id+1)%3], &cli, sizeof(int));
+		write(connfd[id], &init, sizeof(int));
+		
+		write(connfd[(id+1)%3], &comp, sizeof(int));
+		read(connfd[(id+1)%3], &done, sizeof(int));
+		
+		write(connfd[(id+2)%3], &chk, sizeof(int));
+		
 		read(connfd[(id+1)%3], &done, sizeof(int));
 	}
+	
+	rect Q, M;
+	
+	M.x = rand()%255 + rand()/255;
+	M.y = rand()%255 + rand()/255;
+	
+	write(connfd[0], &M.x, sizeof(double));
+	write(connfd[0], &M.y, sizeof(double));
+	
+	read(connfd[2], &Q.x, sizeof(double));
+	read(connfd[2], &Q.y, sizeof(double));
+	
+	Q.x = (Q.x - M.x)/3;
+	Q.y = (Q.y - M.y)/3;
+	
+	print_rect(Q);
+	
+	
 	
 	for (int i = 0; i < 3; i++)
 		close(connfd[i]);

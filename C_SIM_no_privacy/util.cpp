@@ -13,3 +13,8 @@ void print_rect(vector<rect> R){
 		cout << "<" << R[i].x << "," << R[i].y << ">\t\t";
 	cout << "\n";
 }
+
+void set_rect(rect &R, rect R_1){	
+	R.x = R_1.x;	
+	R.y = R_1.y;
+}
