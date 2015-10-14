@@ -24,34 +24,44 @@
 
 module intersections_tb;
 
+parameter N = 8;
+
 	// Inputs
 	
-	reg [7:0] xB;
-	reg [7:0] yB;
-	reg [7:0] xC;
-	reg [7:0] yC;
-	reg [8:0] rB;
-	reg [8:0] rC;
+	wire					[3*N:0]		g_input;
+	wire					[3*N:0]		e_input;
+	
+	reg [N-1:0] xB;
+	reg [N-1:0] yB;
+	reg [N-1:0] xC;
+	reg [N-1:0] yC;
+	reg [N:0] rB;
+	reg [N:0] rC;
 
 	// Outputs
-	wire [7:0] x1E;
-	wire [7:0] y1E;
-	wire [7:0] x2E;
-	wire [7:0] y2E;
+	wire					[4*N-1:0]	o;
+	
+	wire [N-1:0] x1D;
+	wire [N-1:0] y1D;
+	wire [N-1:0] x2D;
+	wire [N-1:0] y2D;
+	
+	assign	g_input[3*N:2*N+1]	=	xB;		
+	assign	g_input[2*N:N+1]	=	yB;		
+	assign	g_input[N:0]		=	rB;		
+	assign	e_input[3*N:2*N+1]	=	xC;		
+	assign	e_input[2*N:N+1]	=	yC;		
+	assign	e_input[N:0]		=	rC;		
+	assign	x1D	=	o[4*N-1:3*N];
+	assign	y1D	=	o[3*N-1:2*N];
+	assign	x2D	=	o[2*N-1:N];
+	assign	y2D	=	o[N-1:0];
 
 	// Instantiate the Unit Under Test (UUT)
-	intersections uut (
-		.xB(xB), 
-		.yB(yB), 
-		.xC(xC), 
-		.yC(yC), 
-		.rB(rB), 
-		.rC(rC), 
-		.x1E(x1E), 
-		.y1E(y1E), 
-		.x2E(x2E), 
-		.y2E(y2E)
-	);
+	intersections #(.N(N)) uut (
+		.g_input(g_input),
+		.e_input(e_input),
+		.o(o)	);
 
 	initial begin
 		// Initialize Inputs
