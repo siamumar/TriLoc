@@ -85,7 +85,7 @@ int helping_car(vector<int> &port){
 	
 	for (int i = 0; i < 3; i++){
 		
-		if (op[i] == 0){ // initialize computation of one pair of intersectiond	 		
+		if (op[i] == 0){ // initialize computation of one pair of intersections
 			write(h_connfd[0], &(R[0].x), sizeof(double));
 			write(h_connfd[0], &(R[0].y), sizeof(double));
 			write(h_connfd[0], &D[0], sizeof(double));
