@@ -1,0 +1,21 @@
+set search_path [list . ../TinyGarbled/circuit_synthesis/lib/dff_full/]
+set target_library ../TinyGarbled/circuit_synthesis/lib/dff_full/dff_full.db
+set link_library ../TinyGarbled/circuit_synthesis/lib/dff_full/dff_full.db
+set symbol_library [concat ../TinyGarbled/circuit_synthesis/lib/generic.sdb]
+set hdlin_while_loop_iterations 2049
+
+analyze -format verilog {../TinyGarbled/circuit_synthesis/syn_lib/MUX.v ../TinyGarbled/circuit_synthesis/syn_lib/FA.v ../TinyGarbled/circuit_synthesis/syn_lib/ADD.v ../TinyGarbled/circuit_synthesis/syn_lib/ADD_.v ../TinyGarbled/circuit_synthesis/syn_lib/SUB.v  ../TinyGarbled/circuit_synthesis/syn_lib/SUB_.v   ../TinyGarbled/circuit_synthesis/syn_lib/TwosComplement.v ../TinyGarbled/circuit_synthesis/syn_lib/MULT.v ../TinyGarbled/circuit_synthesis/syn_lib/MULT_.v  ../TinyGarbled/circuit_synthesis/syn_lib/DIV.v ../TinyGarbled/circuit_synthesis/syn_lib/DIV_.v ../TinyGarbled/circuit_synthesis/syn_lib/COMP.v ../TinyGarbled/circuit_synthesis/syn_lib/COUNT.v ../TinyGarbled/circuit_synthesis/syn_lib/square_root_comb.v }
+
+analyze -format verilog {inside_.v}
+
+elaborate inside_ -architecture verilog -library DEFAULT -update 
+set_max_area -ignore_tns 0 
+#ungroup -flatten -all
+set_flatten false -design *
+set_structure -design * false
+set_resource_allocation area_only
+report_compile_options
+compile -ungroup_all  -map_effort low -area_effort low -no_design_rule
+write -hierarchy -format verilog -output syn/inside_netlist.v
+
+exit
