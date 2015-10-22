@@ -21,7 +21,7 @@
 module intersections #(parameter N = 8)(
 	input					[3*N:0]		g_input,
 	input					[3*N:0]		e_input,
-	output					[4*N-1:0]	o
+	output				[14*N+33:0]	o
     
     );
 	
@@ -29,12 +29,12 @@ module intersections #(parameter N = 8)(
 			wire	signed	[N-1:0]		yB;
 			wire	signed	[N-1:0]		xC;
 			wire	signed	[N-1:0]		yC;
-			wire	signed	[N:0]		rB;
-			wire	signed	[N:0]		rC;
-			wire	signed	[N-1:0]		x1D;
-			wire	signed	[N-1:0]		y1D;
-			wire	signed	[N-1:0]		x2D;
-			wire	signed	[N-1:0]		y2D;
+			wire	signed	[N:0]			rB;
+			wire	signed	[N:0]			rC;
+			wire	signed	[4*N+9:0]	x1D;
+			wire	signed	[3*N+6:0]	y1D;
+			wire	signed	[4*N+9:0]	x2D;
+			wire	signed	[3*N+6:0]	y2D;
 			
 	assign	xB	=	g_input[3*N:2*N+1];
 	assign	yB	=	g_input[2*N:N+1];
@@ -42,12 +42,12 @@ module intersections #(parameter N = 8)(
 	assign	xC	=	e_input[3*N:2*N+1];
 	assign	yC	=	e_input[2*N:N+1];
 	assign	rC	=	e_input[N:0];
-	assign	o[4*N-1:3*N]	=	x1D;
-	assign	o[3*N-1:2*N]	=	y1D;
-	assign	o[2*N-1:N]  	=	x2D;
-	assign	o[N-1:0]	   	=	y2D;
+	assign	o[14*N+33:10*N+24]=	x1D;
+	assign	o[10*N+23:7*N+17]	=	y1D;
+	assign	o[7*N+16:3*N+7]  	=	x2D;
+	assign	o[3*N+6:0]	   	=	y2D;
 	 
-			wire	signed	[N:0]		p, q;
+			wire	signed	[N:0]			p, q;
 			wire	signed	[2*N+3:0]	t;
 			wire	signed	[4*N+9:0]	s;
 			wire	signed	[3*N+5:0]	u;
@@ -84,8 +84,8 @@ module intersections #(parameter N = 8)(
 			
 			wire	signed	[2*N+2:0]	p_sqr_plus_q_sqr;
 			wire	signed	[6*N+12:0]	s_times_p_sqr_plus_q_sqr;  
-			wire	signed	[2*N:0]		y1Dq, y2Dq;
-			wire	signed	[2*N+4:0]	x1D_top, x2D_top;
+			wire	signed	[4*N+7:0]	y1Dq, y2Dq;
+			wire	signed	[4*N+9:0]	x1D_top, x2D_top;
 				
 	
 		
@@ -164,26 +164,26 @@ module intersections #(parameter N = 8)(
 	SUB_ #(.N(3*N+5), .M(3*N+4)) SUB9 (.A({{2{yB_p_sqr_plus_pqxB[3*N+2]}}, yB_p_sqr_plus_pqxB}), .B(qt[3*N+4:1]), .O(yB_p_sqr_plus_pqxB_min_qt_by_2));	//yB_p_sqr_plus_pqxB_min_qt_by_2 : 3N+6
 	ADD_ #(.N(3*N+6), .M(3*N+6)) ADD8 (.A(yB_p_sqr_plus_pqxB_min_qt_by_2), .B(w[3*N+6:1]), .O(y1D_top)); //y1D_top : 3N+7
 	SUB_ #(.N(3*N+6), .M(3*N+6)) SUB10 (.A(yB_p_sqr_plus_pqxB_min_qt_by_2), .B(w[3*N+6:1]), .O(y2D_top));	//y2D_top : 3N+7
+	
 	//assign	y1D = y1D_top/p_sqr_plus_q_sqr; // y1D : N+4
-	//assign	y2D = y2D_top/p_sqr_plus_q_sqr; // y2D : N+4
-	wire	[2*N+6:0]		temp1, temp2;
-	DIV_ #(.N(3*N+7), .M(2*N+3)) DIV1 (.A(y1D_top), .B(p_sqr_plus_q_sqr), .O({temp1, y1D}));
-	DIV_ #(.N(3*N+7), .M(2*N+3)) DIV2 (.A(y2D_top), .B(p_sqr_plus_q_sqr), .O({temp2, y2D}));
+	//assign	y2D = y2D_top/p_sqr_plus_q_sqr; // y2D : N+4	
+	DIV_ #(.N(3*N+7), .M(2*N+3)) DIV1 (.A(y1D_top), .B(p_sqr_plus_q_sqr), .O(y1D));
+	DIV_ #(.N(3*N+7), .M(2*N+3)) DIV2 (.A(y2D_top), .B(p_sqr_plus_q_sqr), .O(y2D));
 	
 	//assign	y1Dq = y1D*q;
-	MULT_ #(.N(N), .M(N+1)) MUL20 (.A(y1D), .B(q), .O(y1Dq));
+	MULT_ #(.N(3*N+7), .M(N+1)) MUL20 (.A(y1D), .B(q), .O(y1Dq)); //y1Dq : 4N+8
 	//assign	y2Dq = y2D*q;
-	MULT_ #(.N(N), .M(N+1)) MUL21 (.A(y2D), .B(q), .O(y2Dq));
+	MULT_ #(.N(3*N+7), .M(N+1)) MUL21 (.A(y2D), .B(q), .O(y2Dq)); //y2Dq : 4N+8
 
 	//assign	x1D = (2*y1Dq + t)/(2*p);
 	//assign	x2D = (2*y2Dq + t)/(2*p);
-	ADD_ #(.N(2*N+4), .M(2*N+2)) ADD9 (.A(t), .B({y1Dq, 1'b0}), .O(x1D_top)); //x1D_top : 2N+5
-	ADD_ #(.N(2*N+4), .M(2*N+2)) ADD10 (.A(t), .B({y2Dq, 1'b0}), .O(x2D_top)); //x2D_top : 2N+5
+	ADD_ #(.N(4*N+9), .M(2*N+4)) ADD9 (.A({y1Dq, 1'b0}), .B(t), .O(x1D_top)); //x1D_top : 4N+10
+	ADD_ #(.N(4*N+9), .M(2*N+4)) ADD10 (.A({y2Dq, 1'b0}), .B(t), .O(x2D_top)); //x2D_top : 4N+10
+	
 	//assign	x1D = x1D_top/(2*p);
-	//assign	x2D = x2D_top/(2*p);
-	wire	[N+4:0]		temp3, temp4;
-	DIV_ #(.N(2*N+5), .M(N+2)) DIV3 (.A(x1D_top), .B({p, 1'b0}), .O({temp3, x1D}));
-	DIV_ #(.N(2*N+5), .M(N+2)) DIV4 (.A(x2D_top), .B({p, 1'b0}), .O({temp4, x2D}));
+	//assign	x2D = x2D_top/(2*p);	
+	DIV_ #(.N(4*N+10), .M(N+2)) DIV3 (.A(x1D_top), .B({p, 1'b0}), .O(x1D));
+	DIV_ #(.N(4*N+10), .M(N+2)) DIV4 (.A(x2D_top), .B({p, 1'b0}), .O(x2D));
 
 
 endmodule

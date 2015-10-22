@@ -12,23 +12,23 @@
    </db_ref_list>
    <WVObjectSize size="40" />
    <wvobject fp_name="/intersections_tb/x1D" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">x1D[7:0]</obj_property>
-      <obj_property name="ObjectShortName">x1D[7:0]</obj_property>
+      <obj_property name="ElementShortName">x1D[41:0]</obj_property>
+      <obj_property name="ObjectShortName">x1D[41:0]</obj_property>
       <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/intersections_tb/y1D" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">y1D[7:0]</obj_property>
-      <obj_property name="ObjectShortName">y1D[7:0]</obj_property>
+      <obj_property name="ElementShortName">y1D[30:0]</obj_property>
+      <obj_property name="ObjectShortName">y1D[30:0]</obj_property>
       <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/intersections_tb/x2D" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">x2D[7:0]</obj_property>
-      <obj_property name="ObjectShortName">x2D[7:0]</obj_property>
+      <obj_property name="ElementShortName">x2D[41:0]</obj_property>
+      <obj_property name="ObjectShortName">x2D[41:0]</obj_property>
       <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/intersections_tb/y2D" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">y2D[7:0]</obj_property>
-      <obj_property name="ObjectShortName">y2D[7:0]</obj_property>
+      <obj_property name="ElementShortName">y2D[30:0]</obj_property>
+      <obj_property name="ObjectShortName">y2D[30:0]</obj_property>
       <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/intersections_tb/uut/p" type="array" db_ref_id="1">
