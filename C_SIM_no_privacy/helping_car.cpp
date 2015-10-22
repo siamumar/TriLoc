@@ -2,7 +2,9 @@
 #include <vector>
 #include <cstring>
 #include <cstdlib>
+#include <cstdint>
 #include <unistd.h>
+#include <cmath>
 #include "tri_loc.h"
 #include "util.h"
 #include "tcpip.h"
@@ -71,9 +73,15 @@ int helping_car(vector<int> &port){
 	vector <rect> R(2);
 	vector <double> D(2);	
 	vector <int> in(2);
-	rect S;
 	R[0] = get_loc(id);
 	D[0] = get_dist(id);
+	
+	int N = 8;
+	uint64_t input = (((uint8_t)R[0].x) << (2*N+1)) | (((uint8_t)R[0].y) << (N+1)) | ((uint16_t)D[0]); // TODO:: This will work only for N = 8, for N = 9 this will not work
+	string input_str = to_string_hex(input, ceil((3*N+1)/4));
+	cout << input_str << endl;
+	
+	rect S;
 	S.x = 0;
 	S.y = 0;
 	

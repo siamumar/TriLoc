@@ -1,4 +1,8 @@
 #include <iostream>
+#include <cstring>
+#include <cstdint>
+#include <iomanip>
+#include <sstream>
 #include "tri_loc.h"
 
 using namespace std;
@@ -17,4 +21,11 @@ void print_rect(vector<rect> R){
 void set_rect(rect &R, rect R_1){	
 	R.x = R_1.x;	
 	R.y = R_1.y;
+}
+
+string to_string_hex(uint64_t v, int pad) {
+  std::stringstream stream;
+  stream << std::hex << std::setw(pad) << std::setfill('0') << v;
+  string ret = stream.str();
+  return ret;
 }

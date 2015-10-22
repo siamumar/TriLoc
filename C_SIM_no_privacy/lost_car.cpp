@@ -2,7 +2,9 @@
 #include <vector>
 #include <cstring>
 #include <cstdlib>
+#include <cstdint>
 #include <unistd.h>
+#include <cmath>
 #include "tri_loc.h"
 #include "util.h"
 #include "tcpip.h"
@@ -70,6 +72,11 @@ int lost_car(vector<int> &port){
 	Q.y = (Q.y - M.y)/3;
 	
 	print_rect(Q);	
+	
+	int N = 8;
+	uint64_t output = (((uint8_t)Q.x) << N) | (((uint8_t)Q.y));
+	string output_str = to_string_hex(output, ceil((2*N)/4));
+	cout << output_str << endl;
 	
 	for (id = 0; id < 3; id++)
 		close(connfd[id]);
