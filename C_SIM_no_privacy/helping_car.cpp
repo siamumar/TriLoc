@@ -77,7 +77,7 @@ int helping_car(vector<int> &port){
 	D[0] = get_dist(id);
 	
 	int N = 8;
-	uint64_t input = (((uint8_t)R[0].x) << (2*N+1)) | (((uint8_t)R[0].y) << (N+1)) | ((uint16_t)D[0]); // TODO:: This will work only for N = 8, for N = 9 this will not work
+	uint64_t input = ((((uint16_t)R[0].x) & 0xFF) << (2*N+1)) | ((((uint16_t)R[0].y) & 0xFF) << (N+1)) | (((uint16_t)D[0]) & 0x1FF); 
 	string input_str = to_string_hex(input, ceil((3*N+1)/4));
 	cout << input_str << endl;
 	
