@@ -11,7 +11,7 @@ rect get_loc(int id){
 	R[0].y  = 108;
 	R[1].x  = -16;
 	R[1].y  = -111;
-	R[2].x  = 309;
+	R[2].x  = 109;
 	R[2].y  = -99;
 	
 	return R[id];
@@ -20,9 +20,9 @@ rect get_loc(int id){
 double get_dist(int id){
 	vector <double> D(3);
 	
-	D[0] = 219.4274; 
-	D[1] = 246.6506;
-	D[2] = 234.9905;
+	D[0] = 215; 
+	D[1] = 236;
+	D[2] = 183;
 	
 	return D[id];
 }
