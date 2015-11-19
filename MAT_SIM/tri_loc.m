@@ -1,4 +1,4 @@
-function U = tri_loc( L, r )
+function U = tri_loc( L, r, pnd)
 
 V = struct ('x', {}, 'y', {});
 
@@ -26,11 +26,6 @@ z = r(B)^2 - r(C)^2 + (L(C).x)^2 - (L(B).x)^2 + (L(C).y)^2 - (L(B).y)^2;
 x1 = (2*y1*(L(B).y - L(C).y) +  z)/(2*(L(C).x - L(B).x));
 x2 = (2*y2*(L(B).y - L(C).y) +  z)/(2*(L(C).x - L(B).x));
 
-[x1 y1; x2 y2]
-
-plot(x1, y1, 'bs')
-plot(x2, y2, 'bs')
-
 H = ((x1 - L(A).x)^2 + (y1 - L(A).y)^2);
 
 if (H <= r(A)^2)
@@ -41,7 +36,16 @@ else
     V(A).y = y2;
 end
 
-[V(A).x V(A).y]
+if(pnd)
+    disp([x1 y1; x2 y2])
+    fprintf(1, '\t%s%s\n\n', dec2hex(bin2dec([dec2bin(typecast(int8(x1),'uint8'),8), dec2bin(typecast(int8(y1),'uint8'),8)])), dec2hex(bin2dec([dec2bin(typecast(int8(x2),'uint8'),8), dec2bin(typecast(int8(y2),'uint8'),8)])));
+    plot(x1, y1, 'bs'), hold on
+    plot(x2, y2, 'bs')
+    disp(H)
+    disp(r(A)^2)
+    disp([V(A).x V(A).y])
+end
+
 
 p = L(B).x - L(A).x;
 q = L(A).y - L(B).y;
@@ -57,11 +61,6 @@ z = r(A)^2 - r(B)^2 + (L(B).x)^2 - (L(A).x)^2 + (L(B).y)^2 - (L(A).y)^2;
 x1 = (2*y1*(L(A).y - L(B).y) +  z)/(2*(L(B).x - L(A).x));
 x2 = (2*y2*(L(A).y - L(B).y) +  z)/(2*(L(B).x - L(A).x));
 
-[x1 y1; x2 y2]
-
-plot(x1, y1, 'bs')
-plot(x2, y2, 'bs')
-
 H = ((x1 - L(C).x)^2 + (y1 - L(C).y)^2);
 
 if (H <= r(C)^2)
@@ -72,7 +71,15 @@ else
     V(C).y = y2;
 end
 
-[V(C).x V(C).y]
+if(pnd)
+    disp([x1 y1; x2 y2])
+    fprintf(1, '\t%s%s\n\n', dec2hex(bin2dec([dec2bin(typecast(int8(x1),'uint8'),8), dec2bin(typecast(int8(y1),'uint8'),8)])), dec2hex(bin2dec([dec2bin(typecast(int8(x2),'uint8'),8), dec2bin(typecast(int8(y2),'uint8'),8)])));
+    plot(x1, y1, 'bs')
+    plot(x2, y2, 'bs')
+    disp(H)
+    disp(r(C)^2)
+    disp([V(C).x V(C).y])
+end
 
 p = L(A).x - L(C).x;
 q = L(C).y - L(A).y;
@@ -88,11 +95,6 @@ z = r(C)^2 - r(A)^2 + (L(A).x)^2 - (L(C).x)^2 + (L(A).y)^2 - (L(C).y)^2;
 x1 = (2*y1*(L(C).y - L(A).y) +  z)/(2*(L(A).x - L(C).x));
 x2 = (2*y2*(L(C).y - L(A).y) +  z)/(2*(L(A).x - L(C).x));
 
-[x1 y1; x2 y2]
-
-plot(x1, y1, 'bs')
-plot(x2, y2, 'bs')
-
 H = ((x1 - L(B).x)^2 + (y1 - L(B).y)^2);
 
 if (H <= r(B)^2)
@@ -103,20 +105,28 @@ else
     V(B).y = y2;
 end
 
-[V(B).x V(B).y]
-
+if(pnd)
+    disp([x1 y1; x2 y2])
+    fprintf(1, '\t%s%s\n\n', dec2hex(bin2dec([dec2bin(typecast(int8(x1),'uint8'),8), dec2bin(typecast(int8(y1),'uint8'),8)])), dec2hex(bin2dec([dec2bin(typecast(int8(x2),'uint8'),8), dec2bin(typecast(int8(y2),'uint8'),8)])));
+    plot(x1, y1, 'bs')
+    plot(x2, y2, 'bs')
+    disp(H)
+    disp(r(B)^2)
+    disp([V(B).x V(B).y])
+end
 
 V(M).x = mean([V(A).x, V(B).x, V(C).x]);
 V(M).y = mean([V(A).y, V(B).y, V(C).y]);
 
-[V(M).x V(M).y]
-
-plot (V(A).x, V(A).y, 'mo')
-plot (V(B).x, V(B).y, 'mo')
-plot (V(C).x, V(C).y, 'mo')
-plot([V(A).x, V(B).x], [V(A).y, V(B).y], 'b')
-plot([V(B).x, V(C).x], [V(B).y, V(C).y], 'b')
-plot([V(C).x, V(A).x], [V(C).y, V(A).y], 'b')
+if(pnd)
+    disp([V(M).x V(M).y])
+    plot (V(A).x, V(A).y, 'mo')
+    plot (V(B).x, V(B).y, 'mo')
+    plot (V(C).x, V(C).y, 'mo')
+    plot([V(A).x, V(B).x], [V(A).y, V(B).y], 'b')
+    plot([V(B).x, V(C).x], [V(B).y, V(C).y], 'b')
+    plot([V(C).x, V(A).x], [V(C).y, V(A).y], 'b')
+end
 
 U = V(M);
 end
