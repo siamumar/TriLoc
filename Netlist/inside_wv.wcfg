@@ -21,39 +21,39 @@
       <obj_property name="ObjectShortName">in_range</obj_property>
       <obj_property name="label">in_range</obj_property>
    </wvobject>
-   <wvobject fp_name="/inside_tb/xD" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">xD[7:0]</obj_property>
-      <obj_property name="ObjectShortName">xD[7:0]</obj_property>
+   <wvobject fp_name="/inside_tb/uut/xD" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">xD[41:0]</obj_property>
+      <obj_property name="ObjectShortName">xD[41:0]</obj_property>
       <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/inside_tb/yD" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">yD[7:0]</obj_property>
-      <obj_property name="ObjectShortName">yD[7:0]</obj_property>
+   <wvobject fp_name="/inside_tb/uut/yD" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">yD[30:0]</obj_property>
+      <obj_property name="ObjectShortName">yD[30:0]</obj_property>
       <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/inside_tb/xA" type="array" db_ref_id="1">
+   <wvobject fp_name="/inside_tb/uut/xA" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">xA[7:0]</obj_property>
       <obj_property name="ObjectShortName">xA[7:0]</obj_property>
       <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/inside_tb/yA" type="array" db_ref_id="1">
+   <wvobject fp_name="/inside_tb/uut/yA" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">yA[7:0]</obj_property>
       <obj_property name="ObjectShortName">yA[7:0]</obj_property>
       <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/inside_tb/rA" type="array" db_ref_id="1">
+   <wvobject fp_name="/inside_tb/uut/rA" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">rA[8:0]</obj_property>
       <obj_property name="ObjectShortName">rA[8:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/inside_tb/uut/H" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">H[18:0]</obj_property>
-      <obj_property name="ObjectShortName">H[18:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <obj_property name="ElementShortName">H[86:0]</obj_property>
+      <obj_property name="ObjectShortName">H[86:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/inside_tb/uut/rA_sqr" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">rA_sqr[17:0]</obj_property>
       <obj_property name="ObjectShortName">rA_sqr[17:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
 </wave_config>

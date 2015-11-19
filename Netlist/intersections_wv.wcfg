@@ -10,7 +10,22 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="40" />
+   <WVObjectSize size="43" />
+   <wvobject fp_name="/intersections_tb/g_input" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">g_input[24:0]</obj_property>
+      <obj_property name="ObjectShortName">g_input[24:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/e_input" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">e_input[24:0]</obj_property>
+      <obj_property name="ObjectShortName">e_input[24:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/intersections_tb/o" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">o[145:0]</obj_property>
+      <obj_property name="ObjectShortName">o[145:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
    <wvobject fp_name="/intersections_tb/x1D" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">x1D[41:0]</obj_property>
       <obj_property name="ObjectShortName">x1D[41:0]</obj_property>
