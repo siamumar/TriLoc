@@ -74,8 +74,7 @@ parameter N = 8;
 
 		// Wait 100 ns for global reset to finish
 		#100;
-        
-		// Add stimulus here
+		
 		xB = -32;
 		yB = 108;
 		xC = -16;
@@ -84,6 +83,23 @@ parameter N = 8;
 		rC = 236;
 		
 		#100;
+		
+		xB = -16;
+		yB = -111;
+		xC = 109;
+		yC = -99;
+		rB = 236;
+		rC = 183;
+		
+		#100;
+		
+		xB = 109;
+		yB = -99;
+		xC = -32;
+		yC = 108;
+		rB = 183;
+		rC = 215;
+
 
 	end
 

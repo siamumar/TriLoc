@@ -27,7 +27,7 @@ module inside_tb;
 parameter N = 8;
 
 	// Inputs
-	wire					[2*N-1:0]	g_input;
+	wire					[7*N+16:0]	g_input;
 	wire					[3*N:0]		e_input;
 	
 	reg [N-1:0] xD;
@@ -41,11 +41,11 @@ parameter N = 8;
 	
 	wire in_range;
 	
-	assign 	g_input[2*N-1:N]	=	xD;	
-	assign 	g_input[N-1:0]		=	yD;		
-	assign	e_input[3*N:2*N+1]=	xA;	
-	assign	e_input[2*N:N+1]	=	yA;	
-	assign	e_input[N:0]		=	rA;	
+	assign 	g_input[7*N+16:3*N+7]	=	xD;	
+	assign 	g_input[3*N+6:0]		=	yD;		
+	assign	e_input[3*N:2*N+1]		=	xA;	
+	assign	e_input[2*N:N+1]		=	yA;	
+	assign	e_input[N:0]			=	rA;	
 	assign	in_range				=	o;	
 
 	// Instantiate the Unit Under Test (UUT)
@@ -67,16 +67,27 @@ parameter N = 8;
         
 		// Add stimulus here
 		
-		xD = 4;
-		yD = 41;
-		xA = -92;
+		xD = 117;
+		yD = 83;
+		xA = -32;
 		yA = 108;
-		rA = 195;
+		rA = 215;
 		
 		#100;
 		
-		xD = 112;
-		yD = -20;
+		xD = 170;
+		yD = 34;
+		xA = 109;
+		yA = -99;
+		rA = 183;
+		
+		#100;
+		
+		xD = 180;
+		yD = 70;
+		xA = -16;
+		yA = -111;
+		rA = 236;
 		
 
 	end
