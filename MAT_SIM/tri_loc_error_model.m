@@ -9,13 +9,15 @@ M = 4;
 M1 = 5;
 L = struct ('x', {}, 'y', {});
 
-KK = 500;
+KK = 100;
 err = zeros(1, 9);    
 T = 100;
 R = T;
 
 L(M).x  = 0;
 L(M).y  = 0;
+
+RR = 0;
 
 % A: red, B: blue, C: green
 
@@ -37,6 +39,7 @@ for kk = 1:KK
     plot(L(B).x, L(B).y, 'b.')
     plot(L(C).x, L(C).y, 'g.')
     
+    RR = RR + mean(r) - R;
     
     L(C).x =  T/2 + T*rand;
     L(C).y =  T/2 + T*rand;    
@@ -48,6 +51,8 @@ for kk = 1:KK
     plot(L(B).x, L(B).y, 'b.')
     plot(L(C).x, L(C).y, 'g.')
     
+    RR = RR + mean(r) - R;
+    
     L(C).x =  T*(rand-.5);
     L(C).y =  T/2 + T*rand;
     r(C) = ((L(M).x - L(C).x)^2 + (L(M).y - L(C).y)^2) ^.5 + R;    
@@ -58,6 +63,8 @@ for kk = 1:KK
     plot(L(B).x, L(B).y, 'b.')
     plot(L(C).x, L(C).y, 'g.')
     
+    RR = RR + mean(r) - R;
+    
     L(C).x =  -T/2 - T*rand;
     L(C).y =  T*(rand-.5);  
     r(C) = ((L(M).x - L(C).x)^2 + (L(M).y - L(C).y)^2) ^.5 + R;    
@@ -67,6 +74,8 @@ for kk = 1:KK
     plot(L(A).x, L(A).y, 'r.')
     plot(L(B).x, L(B).y, 'b.')
     plot(L(C).x, L(C).y, 'g.')
+    
+    RR = RR + mean(r) - R;
     
     L(B).x = T*(rand-.5);
     L(B).y = -T/2 - T*rand;
@@ -81,6 +90,8 @@ for kk = 1:KK
     plot(L(B).x, L(B).y, 'b.')
     plot(L(C).x, L(C).y, 'g.')
     
+    RR = RR + mean(r) - R;
+    
     L(B).x = T/2 + T*rand;
     L(B).y = -T/2 - T*rand;  
     r(B) = ((L(M).x - L(B).x)^2 + (L(M).y - L(B).y)^2) ^.5 + R;  
@@ -90,6 +101,8 @@ for kk = 1:KK
     plot(L(A).x, L(A).y, 'r.')
     plot(L(B).x, L(B).y, 'b.')
     plot(L(C).x, L(C).y, 'g.')
+    
+    RR = RR + mean(r) - R;
     
     L(B).x = T/2 + T*rand;
     L(B).y = T/2 + T*rand; 
@@ -101,6 +114,8 @@ for kk = 1:KK
     plot(L(B).x, L(B).y, 'b.')
     plot(L(C).x, L(C).y, 'g.')
     
+    RR = RR + mean(r) - R;
+    
     L(B).x = T*(rand-.5);
     L(B).y = T/2 + T*rand; 
     r(B) = ((L(M).x - L(B).x)^2 + (L(M).y - L(B).y)^2) ^.5 + R;  
@@ -111,6 +126,8 @@ for kk = 1:KK
     plot(L(B).x, L(B).y, 'b.')
     plot(L(C).x, L(C).y, 'g.')
     
+    RR = RR + mean(r) - R;
+    
     L(B).x = -T/2 - T*rand;
     L(B).y =  T*(rand-.5); 
     r(B) = ((L(M).x - L(B).x)^2 + (L(M).y - L(B).y)^2) ^.5 + R;  
@@ -120,10 +137,14 @@ for kk = 1:KK
     plot(L(A).x, L(A).y, 'r.')
     plot(L(B).x, L(B).y, 'b.')
     plot(L(C).x, L(C).y, 'g.')
+    
+    RR = RR + mean(r) - R;
 
 end
 
 err/KK/T*100/3*2
+
+RR/KK/9
 
 for k = 1:9
     subplot(3,3,k)
