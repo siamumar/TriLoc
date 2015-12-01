@@ -30,8 +30,8 @@ parameter N = 8;
 	wire					[7*N+16:0]	g_input;
 	wire					[3*N:0]		e_input;
 	
-	reg [N-1:0] xD;
-	reg [N-1:0] yD;
+	reg [4*N+9:0] xD;
+	reg [3*N+6:0] yD;
 	reg [N-1:0] xA;
 	reg [N-1:0] yA;
 	reg [N:0] rA;
@@ -67,24 +67,24 @@ parameter N = 8;
         
 		// Add stimulus here
 		
-		xD = 117;
-		yD = 83;
+		xD = 151;
+		yD = -276;
 		xA = -32;
 		yA = 108;
 		rA = 215;
 		
 		#100;
 		
-		xD = 170;
-		yD = 34;
+		xD = -231;
+		yD = 5;
 		xA = 109;
 		yA = -99;
 		rA = 183;
 		
 		#100;
 		
-		xD = 180;
-		yD = 70;
+		xD = -72;
+		yD = -102;
 		xA = -16;
 		yA = -111;
 		rA = 236;
