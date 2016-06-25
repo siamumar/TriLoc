@@ -38,11 +38,11 @@ end
 
 if(pnd)
     disp([x1 y1; x2 y2])
-    fprintf(1, '\t%s%s\n\n', dec2hex(bin2dec([dec2bin(typecast(int8(x1),'uint8'),8), dec2bin(typecast(int8(y1),'uint8'),8)])), dec2hex(bin2dec([dec2bin(typecast(int8(x2),'uint8'),8), dec2bin(typecast(int8(y2),'uint8'),8)])));
+    fprintf(1, '\t%s\n%s\n', dec2hex(bin2dec([dec2bin(typecast(int16(x1),'uint16'),16), dec2bin(typecast(int16(y1),'uint16'),16)])), dec2hex(bin2dec([dec2bin(typecast(int16(x2),'uint16'),16), dec2bin(typecast(int16(y2),'uint16'),16)])));
     plot(x1, y1, 'bs'), hold on
     plot(x2, y2, 'bs')
-    disp(H)
-    disp(r(A)^2)
+%     disp(H)
+%     disp(r(A)^2)
     disp([V(A).x V(A).y])
 end
 
@@ -76,8 +76,8 @@ if(pnd)
     fprintf(1, '\t%s%s\n\n', dec2hex(bin2dec([dec2bin(typecast(int8(x1),'uint8'),8), dec2bin(typecast(int8(y1),'uint8'),8)])), dec2hex(bin2dec([dec2bin(typecast(int8(x2),'uint8'),8), dec2bin(typecast(int8(y2),'uint8'),8)])));
     plot(x1, y1, 'bs')
     plot(x2, y2, 'bs')
-    disp(H)
-    disp(r(C)^2)
+%     disp(H)
+%     disp(r(C)^2)
     disp([V(C).x V(C).y])
 end
 
@@ -110,8 +110,8 @@ if(pnd)
     fprintf(1, '\t%s%s\n\n', dec2hex(bin2dec([dec2bin(typecast(int8(x1),'uint8'),8), dec2bin(typecast(int8(y1),'uint8'),8)])), dec2hex(bin2dec([dec2bin(typecast(int8(x2),'uint8'),8), dec2bin(typecast(int8(y2),'uint8'),8)])));
     plot(x1, y1, 'bs')
     plot(x2, y2, 'bs')
-    disp(H)
-    disp(r(B)^2)
+%     disp(H)
+%     disp(r(B)^2)
     disp([V(B).x V(B).y])
 end
 
