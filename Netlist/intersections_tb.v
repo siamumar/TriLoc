@@ -22,12 +22,14 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 
+//------- RUN SIMULATION FOR 3N+13 CLOCK CYCLES -------
+
 module intersections_tb;
 
 parameter N = 8;
 
 	// Inputs
-	
+	reg 									clk, rst;
 	wire					[3*N:0]		g_input;
 	wire					[3*N:0]		e_input;
 	
@@ -59,31 +61,18 @@ parameter N = 8;
 
 		// Instantiate the Unit Under Test (UUT)
 	intersections #(.N(N)) uut (
+		.clk(clk),
+		.rst(rst),
 		.g_input(g_input),
 		.e_input(e_input),
 		.o(o)	);
+		
+	reg [15:0] counter;
 
 	initial begin
 		// Initialize Inputs
-		xB = 0;
-		yB = 0;
-		xC = 0;
-		yC = 0;
-		rB = 0;
-		rC = 0;
-
-		// Wait 100 ns for global reset to finish
-		#100;
-		
-		xB = -32;
-		yB = 108;
-		xC = -16;
-		yC = -111;
-		rB = 215;
-		rC = 236;
-		
-		#100;
-		
+		clk = 0;
+		rst = 1;
 		xB = -16;
 		yB = -111;
 		xC = 109;
@@ -92,16 +81,17 @@ parameter N = 8;
 		rC = 183;
 		
 		#100;
-		
-		xB = 109;
-		yB = -99;
-		xC = -32;
-		yC = 108;
-		rB = 183;
-		rC = 215;
-
-
+		rst = 0;
 	end
+	
+	always begin
+		#50;
+		clk = ~clk;
+	end
+	
+	always @(posedge clk)
+	if (rst) counter = 0;
+	else counter = counter + 1;
 
       
 endmodule

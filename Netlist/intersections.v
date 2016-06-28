@@ -19,40 +19,61 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module intersections #(parameter N = 8)(
-	input					[3*N:0]		g_input,
-	input					[3*N:0]		e_input,
-	output				[14*N+33:0]	o
-    
+	input										clk,
+	input										rst,
+	input						[3*N:0]		g_input,
+	input						[3*N:0]		e_input,
+	output					[14*N+33:0]	o    
     );
 	
-			wire	signed	[N-1:0]		xB;
-			wire	signed	[N-1:0]		yB;
-			wire	signed	[N-1:0]		xC;
-			wire	signed	[N-1:0]		yC;
-			wire	signed	[N:0]			rB;
-			wire	signed	[N:0]			rC;
+			wire	signed	[N-1:0]		xB_wire;
+			wire	signed	[N-1:0]		yB_wire;
+			wire	signed	[N-1:0]		xC_wire;
+			wire	signed	[N-1:0]		yC_wire;
+			wire	signed	[N:0]			rB_wire;
+			wire	signed	[N:0]			rC_wire;
+			
+			reg	signed	[N-1:0]		xB;
+			reg	signed	[N-1:0]		yB;
+			reg	signed	[N-1:0]		xC;
+			reg	signed	[N-1:0]		yC;
+			reg	signed	[N:0]			rB;
+			reg	signed	[N:0]			rC;
+			
 			wire	signed	[4*N+9:0]	x1D;
 			wire	signed	[3*N+6:0]	y1D;
 			wire	signed	[4*N+9:0]	x2D;
-			wire	signed	[3*N+6:0]	y2D;
+			wire	signed	[3*N+6:0]	y2D;			
+
+			reg	signed	[4*N+9:0]	x1D_reg;
+			reg	signed	[3*N+6:0]	y1D_reg;
+			reg	signed	[4*N+9:0]	x2D_reg;
+			reg	signed	[3*N+6:0]	y2D_reg;
 			
-	assign	xB	=	g_input[3*N:2*N+1];
-	assign	yB	=	g_input[2*N:N+1];
-	assign	rB	=	g_input[N:0];			
-	assign	xC	=	e_input[3*N:2*N+1];
-	assign	yC	=	e_input[2*N:N+1];
-	assign	rC	=	e_input[N:0];
-	assign	o[14*N+33:10*N+24]=	x1D;
-	assign	o[10*N+23:7*N+17]	=	y1D;
-	assign	o[7*N+16:3*N+7]  	=	x2D;
-	assign	o[3*N+6:0]	   	=	y2D;
+	assign	xB_wire	=	g_input[3*N:2*N+1];
+	assign	yB_wire	=	g_input[2*N:N+1];
+	assign	rB_wire	=	g_input[N:0];			
+	assign	xC_wire	=	e_input[3*N:2*N+1];
+	assign	yC_wire	=	e_input[2*N:N+1];
+	assign	rC_wire	=	e_input[N:0];
+	
+	assign	o[14*N+33:10*N+24]=	x1D_reg;
+	assign	o[10*N+23:7*N+17]	=	y1D_reg;
+	assign	o[7*N+16:3*N+7]  	=	x2D_reg;
+	assign	o[3*N+6:0]	   	=	y2D_reg;
 	 
 			wire	signed	[N:0]			p, q;
 			wire	signed	[2*N+3:0]	t;
 			wire	signed	[4*N+9:0]	s;
 			wire	signed	[3*N+5:0]	u;
+			
 			wire	signed	[6*N+13:0]	w_sqr;
-			wire	signed	[3*N+6:0]	w;
+			reg	signed	[6*N+13:0]	w_sqr_reg;
+			wire	signed	[3*N+6:0]	w_wire;
+			reg	signed	[3*N+6:0]	w;
+			reg								start;
+			wire								ready;
+			
 			wire	signed	[2*N+5:0]	z;
 			
 			wire	signed	[2*N-1:0]	xB_sqr, yB_sqr, xC_sqr, yC_sqr;
@@ -154,9 +175,13 @@ module intersections #(parameter N = 8)(
 	//assign	w_sqr = (u_sqr - s_times_p_sqr_plus_q_sqr);
 	SUB_ #(.N(6*N+13), .M(6*N+13)) SUB8 (.A({1'b0,u_sqr}), .B(s_times_p_sqr_plus_q_sqr), .O(w_sqr)); //w_sqr : 6N+14
 	
-	square_root_comb #(.N(6*N+14), .M(3*N+6)) square_root_comb(
-		.A(w_sqr),
-		.O(w)
+	square_root_seq #(.N(6*N+14), .M(3*N+7)) square_root_seq(
+		.clk(clk), 
+		.rst(rst), 
+		.start(start), 
+		.A(w_sqr_reg),
+		.O(w_wire), 
+		.ready(ready)
 	); //w : 3N+7
 	
 	//assign	y1D = ( pqxB + yB_p_sqr - qt/2 + w/2 )/p_sqr_plus_q_sqr;
@@ -184,6 +209,47 @@ module intersections #(parameter N = 8)(
 	//assign	x2D = x2D_top/(2*p);	
 	DIV_ #(.N(4*N+10), .M(N+2)) DIV3 (.A(x1D_top), .B({p, 1'b0}), .O(x1D));
 	DIV_ #(.N(4*N+10), .M(N+2)) DIV4 (.A(x2D_top), .B({p, 1'b0}), .O(x2D));
+	
+	
+	reg [1:0] state;
+	
+	always @(posedge clk) begin
+		if(rst) begin
+			start = 1'b0;
+			state <= 2'b00;
+		end
+		else begin
+			case(state)
+				2'b00:begin
+					xB	<=	xB_wire;
+					yB	<=	yB_wire;
+					xC	<=	xC_wire;
+					yC	<=	yC_wire;
+					rB	<=	rB_wire;
+					rC	<=	rC_wire;
+					state <= 2'b01;
+				end
+				2'b01:begin
+					w_sqr_reg <= w_sqr;
+					start <= 1'b1;
+					state <= 2'b10;
+				end
+				2'b10:begin
+					start <= 1'b0;
+					if (ready) begin	
+						w <= w_wire;
+						state = 2'b11;
+					end
+				end
+				2'b11:begin
+					x1D_reg	=	x1D;
+					y1D_reg	=	y1D;		
+					x2D_reg	=	x2D;
+					y2D_reg	=	y2D;					
+				end
+			endcase
+		end
+	end
 
 
 endmodule
