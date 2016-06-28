@@ -213,10 +213,22 @@ module intersections #(parameter N = 8)(
 	
 	reg [1:0] state;
 	
-	always @(posedge clk) begin
+	always @(posedge clk or posedge rst) begin
 		if(rst) begin
-			start <= 1'b0;
-			state <= 2'b00;
+			start	<= 1'b0;
+			state	<= 2'b00;
+			xB		<=	0;
+			yB		<=	0;
+			xC		<=	0;
+			yC		<=	0;
+			rB		<=	0;
+			rC		<=	0;
+			x1D_reg	<=	0;
+			y1D_reg	<=	0;
+			x2D_reg	<=	0;
+			y2D_reg	<=	0;	
+			w_sqr_reg <= 0;
+			w		<= 0;
 		end
 		else begin
 			case(state)
@@ -242,10 +254,10 @@ module intersections #(parameter N = 8)(
 					end
 				end
 				2'b11:begin
-					x1D_reg	=	x1D;
-					y1D_reg	=	y1D;		
-					x2D_reg	=	x2D;
-					y2D_reg	=	y2D;					
+					x1D_reg	<=	x1D;
+					y1D_reg	<=	y1D;		
+					x2D_reg	<=	x2D;
+					y2D_reg	<=	y2D;					
 				end
 			endcase
 		end

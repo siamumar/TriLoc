@@ -6,3 +6,4 @@ fi
 if [ $2 == "1" ]; then
 	design_vision -no_gui -f inside_syn.dcsh
 fi 
+rm *.pvl *.syn *.mr *.log *.svf
