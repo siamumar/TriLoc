@@ -215,7 +215,7 @@ module intersections #(parameter N = 8)(
 	
 	always @(posedge clk) begin
 		if(rst) begin
-			start = 1'b0;
+			start <= 1'b0;
 			state <= 2'b00;
 		end
 		else begin
@@ -238,7 +238,7 @@ module intersections #(parameter N = 8)(
 					start <= 1'b0;
 					if (ready) begin	
 						w <= w_wire;
-						state = 2'b11;
+						state <= 2'b11;
 					end
 				end
 				2'b11:begin
