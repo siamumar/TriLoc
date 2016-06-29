@@ -21,8 +21,8 @@
 module intersections #(parameter N = 8)(
 	input										clk,
 	input										rst,
-	input						[3*N:0]		g_input,
-	input						[3*N:0]		e_input,
+	input						[3*N:0]		g_init,
+	input						[3*N:0]		e_init,
 	output					[14*N+33:0]	o    
     );
 	
@@ -50,12 +50,12 @@ module intersections #(parameter N = 8)(
 			reg	signed	[4*N+9:0]	x2D_reg;
 			reg	signed	[3*N+6:0]	y2D_reg;
 			
-	assign	xB_wire	=	g_input[3*N:2*N+1];
-	assign	yB_wire	=	g_input[2*N:N+1];
-	assign	rB_wire	=	g_input[N:0];			
-	assign	xC_wire	=	e_input[3*N:2*N+1];
-	assign	yC_wire	=	e_input[2*N:N+1];
-	assign	rC_wire	=	e_input[N:0];
+	assign	xB_wire	=	g_init[3*N:2*N+1];
+	assign	yB_wire	=	g_init[2*N:N+1];
+	assign	rB_wire	=	g_init[N:0];			
+	assign	xC_wire	=	e_init[3*N:2*N+1];
+	assign	yC_wire	=	e_init[2*N:N+1];
+	assign	rC_wire	=	e_init[N:0];
 	
 	assign	o[14*N+33:10*N+24]=	x1D_reg;
 	assign	o[10*N+23:7*N+17]	=	y1D_reg;
@@ -217,12 +217,12 @@ module intersections #(parameter N = 8)(
 		if(rst) begin
 			start	<= 1'b0;
 			state	<= 2'b00;
-			xB		<=	0;
-			yB		<=	0;
-			xC		<=	0;
-			yC		<=	0;
-			rB		<=	0;
-			rC		<=	0;
+			xB	<=	xB_wire;
+			yB	<=	yB_wire;
+			xC	<=	xC_wire;
+			yC	<=	yC_wire;
+			rB	<=	rB_wire;
+			rC	<=	rC_wire;
 			x1D_reg	<=	0;
 			y1D_reg	<=	0;
 			x2D_reg	<=	0;
@@ -231,29 +231,26 @@ module intersections #(parameter N = 8)(
 			w		<= 0;
 		end
 		else begin
+			xB	<=	xB;
+			yB	<=	yB;
+			xC	<=	xC;
+			yC	<=	yC;
+			rB	<=	rB;
+			rC	<=	rC;
 			case(state)
 				2'b00:begin
-					xB	<=	xB_wire;
-					yB	<=	yB_wire;
-					xC	<=	xC_wire;
-					yC	<=	yC_wire;
-					rB	<=	rB_wire;
-					rC	<=	rC_wire;
+					w_sqr_reg <= w_sqr;
+					start <= 1'b1;
 					state <= 2'b01;
 				end
 				2'b01:begin
-					w_sqr_reg <= w_sqr;
-					start <= 1'b1;
-					state <= 2'b10;
-				end
-				2'b10:begin
 					start <= 1'b0;
 					if (ready) begin	
 						w <= w_wire;
-						state <= 2'b11;
+						state <= 2'b10;
 					end
 				end
-				2'b11:begin
+				2'b10:begin
 					x1D_reg	<=	x1D;
 					y1D_reg	<=	y1D;		
 					x2D_reg	<=	x2D;
