@@ -30,8 +30,8 @@ parameter N = 8;
 
 	// Inputs
 	reg 									clk, rst;
-	wire					[3*N:0]		g_input;
-	wire					[3*N:0]		e_input;
+	wire					[3*N:0]		g_init;
+	wire					[3*N:0]		e_init;
 	
 	reg [N-1:0] xB;
 	reg [N-1:0] yB;
@@ -48,12 +48,12 @@ parameter N = 8;
 	wire	signed	[4*N+9:0]	x2D;
 	wire	signed	[3*N+6:0]	y2D;
 	
-	assign	g_input[3*N:2*N+1]	=	xB;		
-	assign	g_input[2*N:N+1]		=	yB;		
-	assign	g_input[N:0]			=	rB;		
-	assign	e_input[3*N:2*N+1]	=	xC;		
-	assign	e_input[2*N:N+1]		=	yC;		
-	assign	e_input[N:0]			=	rC;		
+	assign	g_init[3*N:2*N+1]	=	xB;		
+	assign	g_init[2*N:N+1]		=	yB;		
+	assign	g_init[N:0]			=	rB;		
+	assign	e_init[3*N:2*N+1]	=	xC;		
+	assign	e_init[2*N:N+1]		=	yC;		
+	assign	e_init[N:0]			=	rC;		
 	assign	x1D	=	o[14*N+33:10*N+24];
 	assign	y1D	=	o[10*N+23:7*N+17];
 	assign	x2D	=	o[7*N+16:3*N+7];
@@ -63,8 +63,8 @@ parameter N = 8;
 	intersections #(.N(N)) uut (
 		.clk(clk),
 		.rst(rst),
-		.g_input(g_input),
-		.e_input(e_input),
+		.g_init(g_init),
+		.e_init(e_init),
 		.o(o)	);
 		
 	reg [15:0] counter;
