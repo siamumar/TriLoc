@@ -1,5 +1,5 @@
 clc
-% clear all
+clear all
 close all
 
 A = 1;
@@ -35,6 +35,7 @@ plot (L(A).x, L(A).y, 'ko')
 plot (L(B).x, L(B).y, 'ko')
 plot (L(C).x, L(C).y, 'ko')
 
+fprintf(1, 'init hex strings:\n');
 for k = A:C 
     fprintf(1, '\t%s \n', dec2hex(bin2dec([dec2bin(typecast(int8(L(k).x),'uint8'),8), dec2bin(typecast(int8(L(k).y),'uint8'),8), dec2bin(typecast(int16(r(k)),'uint16'),9)])));
 end
@@ -50,4 +51,5 @@ end
 
 plot (L(M1).x, L(M1).y, 'rx')
 
+fprintf(1, 'output hex string:\n');
 fprintf(1, '\t%s \n', dec2hex(bin2dec([dec2bin(typecast(int8(L(M1).x),'uint8'),8), dec2bin(typecast(int8(L(M1).y),'uint8'),8)])));

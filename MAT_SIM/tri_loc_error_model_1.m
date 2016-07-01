@@ -1,4 +1,4 @@
-% clc
+clc
 clear all
 close all
 
@@ -19,9 +19,6 @@ T = 100;
 s = [.5, .7, .9];
 S = s*T;
 
-% ERR = zeros(3, 181); 
-% mean_ERR = zeros(3, 181);
-% THETA = zeros(1, 181);
 
 ERR_M = zeros(3, 200);
 mean_ERR_M = zeros(3, 200);
@@ -30,7 +27,7 @@ DIST = zeros(1, 200);
 
 % A: red, B: blue, C: green
 tic;
-K = 10e4;
+K = 10e3;
 k = 1;
 while (k <= K)
 
@@ -44,17 +41,6 @@ while (k <= K)
     P = [L(A).x, L(A).y, 0];
     Q = [L(B).x, L(B).y, 0];
     R = [L(C).x, L(C).y, 0];
-    
-%     theta(1) = atan2(norm(cross(P,Q)),dot(P,Q))*180/pi;
-%     theta(2) = atan2(norm(cross(Q,R)),dot(Q,R))*180/pi;
-%     theta(3) = atan2(norm(cross(R,P)),dot(R,P))*180/pi;    
-%     theta = sort(theta);
-%     theta = theta(2:3);
-%     index = round(mean(theta))+1;
-%     if(THETA(index) >= K/175)
-%         continue;
-%     end
-%     THETA(index) = THETA(index) + 1;
     
     median(1).x = (L(A).x + L(B).x + L(C).x)/3; 
     median(1).y = (L(A).y + L(B).y + L(C).y)/3; 
@@ -71,7 +57,6 @@ while (k <= K)
     for l = 1:3
         L(M1) = tri_loc(L(A:C), r+S(l), 0);
         err = ((L(M1).x)^2 + (L(M1).y)^2) ^.5;
-%         ERR(l, index) = ERR(l, index) + err;
         ERR_M(l, dist) = ERR_M(l, dist) + err;        
     end
     
@@ -86,13 +71,10 @@ while (k <= K)
 end
 
 for l = 1:3
-%     mean_ERR(l, :) = ERR(l, :)./THETA/T/2;
     mean_ERR_M(l, :) = ERR_M(l, :)./DIST/T/2;
 end
 
 figure(3)
-% plot(THETA)
 plot(DIST)
 
-% save mean_ERR mean_ERR
-% save mean_ERR_M_1 mean_ERR_M
+save mean_ERR_M

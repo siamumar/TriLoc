@@ -54,7 +54,7 @@ r1(k) = mod(r(k),8);
 r2(k) = floor(r(k)/4);
 end
 
-L1(M1) = tri_loc(L1(A:C), r1, 0);
-L2(M1) = tri_loc(L2(A:C), r2, 0);
+L1(M1) = tri_loc(L1(A:C), r1, 1);
+L2(M1) = tri_loc(L2(A:C), r2, 1);
 
 
