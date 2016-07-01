@@ -6,7 +6,7 @@ set hdlin_while_loop_iterations 2049
 
 analyze -format verilog {../../circuit_synthesis/syn_lib/MUX.v ../../circuit_synthesis/syn_lib/FA.v ../../circuit_synthesis/syn_lib/ADD.v ../../circuit_synthesis/syn_lib/ADD_.v ../../circuit_synthesis/syn_lib/SUB.v  ../../circuit_synthesis/syn_lib/SUB_.v   ../../circuit_synthesis/syn_lib/TwosComplement.v ../../circuit_synthesis/syn_lib/MULT.v ../../circuit_synthesis/syn_lib/MULT_.v  ../../circuit_synthesis/syn_lib/DIV.v ../../circuit_synthesis/syn_lib/DIV_.v ../../circuit_synthesis/syn_lib/COMP.v ../../circuit_synthesis/syn_lib/COUNT.v ../../circuit_synthesis/syn_lib/square_root.v }
 
-analyze -format verilog {intersections.v}
+analyze -format verilog {intersections_seq.v}
 
 elaborate intersections -architecture verilog -library DEFAULT -update 
 set_max_area -ignore_tns 0 
@@ -16,6 +16,6 @@ set_structure -design * false
 set_resource_allocation area_only
 report_compile_options
 compile -ungroup_all  -map_effort low -area_effort low -no_design_rule
-write -hierarchy -format verilog -output syn/intersections_netlist.v
+write -hierarchy -format verilog -output syn/intersections_seq_netlist.v
 
 exit
