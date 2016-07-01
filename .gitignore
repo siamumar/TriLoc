@@ -24,5 +24,4 @@ justGarble/readNetlist/debug
 work/
 transcript
 *.wlf
-syn/
-syn/*
+syn/*.map
