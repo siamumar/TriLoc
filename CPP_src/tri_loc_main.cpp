@@ -5,7 +5,7 @@
 #include <cstdint>
 #include <unistd.h>
 #include <cmath>
-#include "tri_loc/tri_loc.h"
+#include "CPP_src/tri_loc.h"
 
 #include "crypto/OT_extension.h"
 #include "util/util.h"

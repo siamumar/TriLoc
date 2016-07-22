@@ -6,7 +6,7 @@
 #include <cmath>
 #include <sys/time.h>
 #include <pthread.h>
-#include "tri_loc/tri_loc.h"
+#include "CPP_src/tri_loc.h"
 
 #include "garbled_circuit/garbled_circuit.h"
 #include "tcpip/tcpip.h"
