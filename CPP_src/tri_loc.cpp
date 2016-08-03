@@ -159,6 +159,10 @@ int lost_car(vector<int> &port){
 		}
 	
 	uint64_t delta_time = RDTSC;
+	struct timeval tp;
+	double t0, t1;
+	gettimeofday(&tp, NULL);
+	t0 = (tp.tv_sec)*1000 + (tp.tv_usec)/1000;
 	
 	//provide each car an id and get the port numbers they use to establish server with other cars
 	vector<int> h_port(3);	
@@ -202,7 +206,9 @@ int lost_car(vector<int> &port){
 		ServerClose(connfd[id]);
 	
 	delta_time = RDTSC - delta_time;	
-	cout << "total time(cc): " << delta_time << " second: " << (double)delta_time/(3.4e9) << endl << endl; 
+	gettimeofday(&tp, NULL);
+	t1 = (tp.tv_sec)*1000 + ((double)tp.tv_usec)/1000;
+	cout << "total time: " << delta_time << " cc, " << (t1 - t0) << " ms" << endl << endl; 
 	
 	return 0;
 	
