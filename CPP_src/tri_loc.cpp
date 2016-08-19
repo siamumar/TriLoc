@@ -60,6 +60,21 @@ double get_dist(int id){
 	return D[id];
 }
 
+int get_client_ip(int cli_fd){
+	struct sockaddr_in cli_addr;
+	socklen_t clilen = sizeof(cli_addr);
+	getsockname(cli_fd, (struct sockaddr *)(&cli_addr), &clilen);
+	int client_ip = cli_addr.sin_addr.s_addr;
+	return client_ip;
+}
+
+string ip_int2str(int ip_int){
+	struct in_addr ip_struct;
+    ip_struct.s_addr = ip_int;
+	string ip_string = inet_ntoa(ip_struct);
+	return ip_string;
+}
+
 #if PRIVACY	
 #if (!SINGLE_THREAD)
 void *intersection_GC(void* I){
@@ -150,21 +165,6 @@ bool inside (rect D, rect A, double rA){
 	return in;
 }
 #endif //PRIVACY
-
-int get_client_ip(int cli_fd){
-	struct sockaddr_in cli_addr;
-	socklen_t clilen = sizeof(cli_addr);
-	getsockname(cli_fd, (struct sockaddr *)(&cli_addr), &clilen);
-	int client_ip = cli_addr.sin_addr.s_addr;
-	return client_ip;
-}
-
-string ip_int2str(int ip_int){
-	struct in_addr ip_struct;
-    ip_struct.s_addr = ip_int;
-	string ip_string = inet_ntoa(ip_struct);
-	return ip_string;
-}
 
 int lost_car(vector<int> &port){
 	
@@ -294,20 +294,20 @@ int helping_car(string l_server_ip, vector<int> &port){
 		op[1] = 0;
 	}	
 	
-	//triangle localization
-	vector <rect> M_1(2), M(2);
-	vector <rect> R(2);
-	vector <double> D(2);	
-	vector <int> in(2);
-	R[0] = get_loc(id);
-	D[0] = get_dist(id);
+	//triangle localization	
+	rect loc; // location of the assisting car, 
+	double dist; // distance from the lost car
+	vector <rect> intersect(2); // two intersections with two assisting cars (one from each pair of intersection with each car)
+	vector <int> in(2); // whether or not the intersection known to this assisting car forms one vertex of the triangle
+	loc = get_loc(id);
+	dist = get_dist(id);
 
 #if PRIVACY	
 	vector<uint64_t> input(3);
 	vector<uint16_t> input_bit_len(3);
-	input[0] = R[0].x;
-	input[1] = R[0].y;
-	input[2] = D[0];
+	input[0] = loc.x;
+	input[1] = loc.y;
+	input[2] = dist;
 	input_bit_len[0] = BIT_LEN;
 	input_bit_len[1] = BIT_LEN;
 	input_bit_len[2] = BIT_LEN+1;
@@ -400,44 +400,48 @@ int helping_car(string l_server_ip, vector<int> &port){
 	ourput_bit_len[1] = 3*BIT_LEN+7;
 	for (i = 0; i < 2; i++){
 		parseGCOutputString(output, output_str_int[i], ourput_bit_len, offset[i]);
-		M[i].x = output[0];
-		M[i].y = output[1];
+		intersect[i].x = output[0];
+		intersect[i].y = output[1];
 	}
 	
 	in[1] = atoi(in_range.c_str());
 	
-#else	//PRIVACY	
+#else	//PRIVACY
+	vector <rect> intersect_temp(2);
+	vector <rect> L(2); 
+	vector <double> D(2);
+	L[0] = loc;
+	D[0] = dist;
 	
 	for (i = 0; i < 2; i++){		
 		if (op[i] == 0){// initiate computation of one pair of intersections			
-			SendData(h_connfd[0], &(R[0].x), sizeof(double));
-			SendData(h_connfd[0], &(R[0].y), sizeof(double));
+			SendData(h_connfd[0], &(L[0].x), sizeof(double));
+			SendData(h_connfd[0], &(L[0].y), sizeof(double));
 			SendData(h_connfd[0], &D[0], sizeof(double));			
-			RecvData(h_connfd[0], &(M[0].x), sizeof(double));
-			RecvData(h_connfd[0], &(M[0].y), sizeof(double));
-	
+			RecvData(h_connfd[0], &(intersect[0].x), sizeof(double));
+			RecvData(h_connfd[0], &(intersect[0].y), sizeof(double));	
 		}
 		else if (op[i] == 1){ // compute intersections		
-			RecvData(h_connfd[1], &(R[1].x), sizeof(double));
-			RecvData(h_connfd[1], &(R[1].y), sizeof(double));
+			RecvData(h_connfd[1], &(L[1].x), sizeof(double));
+			RecvData(h_connfd[1], &(L[1].y), sizeof(double));
 			RecvData(h_connfd[1], &D[1], sizeof(double)); 			
-			M_1 = intersection(R[0], D[0], R[1], D[1]);
-			set_rect(M[1], M_1[1]);			
-			SendData(h_connfd[1], &(M_1[0].x), sizeof(double));
-			SendData(h_connfd[1], &(M_1[0].y), sizeof(double));					
+			intersect_temp = intersection(L[0], D[0], L[1], D[1]);
+			set_rect(intersect[1], intersect_temp[1]);			
+			SendData(h_connfd[1], &(intersect_temp[0].x), sizeof(double));
+			SendData(h_connfd[1], &(intersect_temp[0].y), sizeof(double));					
 		}
 	}
 	
 	for (i = 0; i < 2; i++){		
 		if (op[i] == 0){// check which one is valid				
-			RecvData(h_connfd[0], &(R[1].x), sizeof(double));
-			RecvData(h_connfd[0], &(R[1].y), sizeof(double));
+			RecvData(h_connfd[0], &(L[1].x), sizeof(double));
+			RecvData(h_connfd[0], &(L[1].y), sizeof(double));
 			RecvData(h_connfd[0], &(D[1]), sizeof(double));			
-			in[1] = (int)(inside(M[1], R[1], D[1]));			
+			in[1] = (int)(inside(intersect[1], L[1], D[1]));			
 		}
 		else if (op[i] == 1){ // help check validity of the intersections	
-			SendData(h_connfd[1], &(R[0].x), sizeof(double));
-			SendData(h_connfd[1], &(R[0].y), sizeof(double));
+			SendData(h_connfd[1], &(L[0].x), sizeof(double));
+			SendData(h_connfd[1], &(L[0].y), sizeof(double));
 			SendData(h_connfd[1], &(D[0]), sizeof(double));	
 		}
 	}
@@ -453,11 +457,11 @@ int helping_car(string l_server_ip, vector<int> &port){
 	}
 	
 	cout << "\nIntersection computed as garbler: ";
-	print_rect(M[0]);
+	print_rect(intersect[0]);
 	if (!in[0]) cout << "Intersection is in range" << endl;
 	else cout << "Intersection is not in range" << endl;
 	cout << "Intersection computed as evaluator: ";
-	print_rect(M[1]);
+	print_rect(intersect[1]);
 	if (in[1]) cout << "Intersection is in range" << endl << endl;
 	else cout << "Intersection is not in range" << endl << endl;
 		
@@ -467,12 +471,12 @@ int helping_car(string l_server_ip, vector<int> &port){
 	S.x = 0;
 	S.y = 0;
 	if(!in[0]){
-		S.x = S.x + M[0].x;
-		S.y = S.y + M[0].y;
+		S.x = S.x + intersect[0].x;
+		S.y = S.y + intersect[0].y;
 	}				
 	if(in[1]){
-		S.x = S.x + M[1].x;
-		S.y = S.y + M[1].y;
+		S.x = S.x + intersect[1].x;
+		S.y = S.y + intersect[1].y;
 	}
 	
 	rect T;
