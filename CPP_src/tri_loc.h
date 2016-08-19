@@ -4,9 +4,10 @@
 #include <vector>
 #include <cstring>
 
-#define SINGLE_THREAD 0
 #define PRIVACY 1
+#define SINGLE_THREAD 0
 #define SEQUENTIAL 1
+
 #define BIT_LEN 8
 	
 #define INTERSECTION_SEQ_SCD "../../../TriLoc/Netlist/syn/intersections_seq_8.scd"	

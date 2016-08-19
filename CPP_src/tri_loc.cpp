@@ -60,7 +60,8 @@ double get_dist(int id){
 	return D[id];
 }
 
-#if PRIVACY	&& (!SINGLE_THREAD)
+#if PRIVACY	
+#if (!SINGLE_THREAD)
 void *intersection_GC(void* I){
 	int_data *I_data;
 	I_data = (int_data*)I;
@@ -112,7 +113,8 @@ void *inside_GC(void* I){
 	
 	return 0;
 }
-#else
+#endif //(!SINGLE_THREAD)
+#else //PRIVACY
 vector <rect> intersection (rect B, double rB, rect C, double rC){
 	
 	vector <rect> E(2);
@@ -147,7 +149,7 @@ bool inside (rect D, rect A, double rA){
 	
 	return in;
 }
-#endif
+#endif //PRIVACY
 
 int get_client_ip(int cli_fd){
 	struct sockaddr_in cli_addr;
@@ -314,13 +316,11 @@ int helping_car(string l_server_ip, vector<int> &port){
 	
 	vector <string> output_str_int(2);
 	string in_range, in_range_dummy;
-	string intersection_output_mask = formatGCOutputMask(7*BIT_LEN+17, 7*BIT_LEN+17, true);
-#endif	
+	string intersection_output_mask = formatGCOutputMask(7*BIT_LEN+17, 7*BIT_LEN+17, true);	
 
 #if SINGLE_THREAD		
 	for (i = 0; i < 2; i++){		
-		if (op[i] == 0){// initiate computation of one pair of intersections
-#if PRIVACY				
+		if (op[i] == 0){// initiate computation of one pair of intersections			
 			cout << "Garbler input: " << input_str << endl;
 #if SEQUENTIAL
 			CHECK(GarbleStr(INTERSECTION_SEQ_SCD, "", "", input_str, "", 3*BIT_LEN+13, intersection_output_mask, 0, (OutputMode)2, 0, 0, &output_str_int[0], h_connfd[0]));
@@ -328,64 +328,31 @@ int helping_car(string l_server_ip, vector<int> &port){
 			CHECK(GarbleStr(INTERSECTION_COMB_SCD, "", "", "", input_str, 1, intersection_output_mask, 0, (OutputMode)0, 0, 0, &output_str_int[0], h_connfd[0]));
 #endif
 			cout << "Garbler output: " << output_str_int[0] << endl;
-#else				
-			SendData(h_connfd[0], &(R[0].x), sizeof(double));
-			SendData(h_connfd[0], &(R[0].y), sizeof(double));
-			SendData(h_connfd[0], &D[0], sizeof(double));			
-			RecvData(h_connfd[0], &(M[0].x), sizeof(double));
-			RecvData(h_connfd[0], &(M[0].y), sizeof(double));
-#endif	
 		}
-		else if (op[i] == 1){ // compute intersections		
-#if PRIVACY				
+		else if (op[i] == 1){ // compute intersections						
 			cout << "Evaluator input: " << input_str << endl;
 #if SEQUENTIAL
 			CHECK(EvaluateStr(INTERSECTION_SEQ_SCD, "", "", input_str, "", 3*BIT_LEN+13, intersection_output_mask, 0, (OutputMode)2, 0, 0, &output_str_int[1], h_connfd[1]));
 #else	
 			CHECK(EvaluateStr(INTERSECTION_COMB_SCD, "", "", "", input_str, 1, intersection_output_mask, 0, (OutputMode)0, 0, 0, &output_str_int[1], h_connfd[1]));
 #endif	
-			cout << "Evaluator output: " << output_str_int[1] << endl;
-#else	
-			RecvData(h_connfd[1], &(R[1].x), sizeof(double));
-			RecvData(h_connfd[1], &(R[1].y), sizeof(double));
-			RecvData(h_connfd[1], &D[1], sizeof(double)); 			
-			M_1 = intersection(R[0], D[0], R[1], D[1]);
-			set_rect(M[1], M_1[1]);			
-			SendData(h_connfd[1], &(M_1[0].x), sizeof(double));
-			SendData(h_connfd[1], &(M_1[0].y), sizeof(double));	
-#endif					
+			cout << "Evaluator output: " << output_str_int[1] << endl;				
 		}
 	}
 	
 	for (i = 0; i < 2; i++){		
-		if (op[i] == 0){// check which one is valid	
-#if PRIVACY				
+		if (op[i] == 0){// check which one is valid				
 			cout << "Garbler input: " << output_str_int[1] << endl;
 			CHECK(GarbleStr(INSIDE_SCD, "", "", "", output_str_int[1], 1, "1", 0, (OutputMode)0, 0, 0, &in_range, h_connfd[0]));
-			cout << "Garbler output: " << in_range << endl;
-#else			
-			RecvData(h_connfd[0], &(R[1].x), sizeof(double));
-			RecvData(h_connfd[0], &(R[1].y), sizeof(double));
-			RecvData(h_connfd[0], &(D[1]), sizeof(double));			
-			in[1] = (int)(inside(M[1], R[1], D[1]));
-#endif				
+			cout << "Garbler output: " << in_range << endl;				
 		}
-		else if (op[i] == 1){ // help check validity of the intersections
-#if PRIVACY				
+		else if (op[i] == 1){ // help check validity of the intersections			
 			cout << "Evaluator input: " << input_str << endl;
 			CHECK(EvaluateStr(INSIDE_SCD, "", "", "", input_str, 1, "1", 0, (OutputMode)0, 0, 0, &in_range_dummy, h_connfd[1]));	
 			cout << "Evaluator output: " << endl;
-#else	
-			SendData(h_connfd[1], &(R[0].x), sizeof(double));
-			SendData(h_connfd[1], &(R[0].y), sizeof(double));
-			SendData(h_connfd[1], &(D[0]), sizeof(double));	
-#endif	
 		}
 	}
-
 #else	//SINGLE_THREAD	
-
-#if PRIVACY
 	int_data *I_data = new int_data[2];	
 	pthread_t *threads = new pthread_t[2];
 
@@ -422,10 +389,8 @@ int helping_car(string l_server_ip, vector<int> &port){
 	while (running_threads > 0);	
 	
 	in_range = I_data[0].output_str;
-#endif
-#endif
+#endif	//SINGLE_THREAD	
 
-#if PRIVACY
 	vector<uint16_t> offset(2); //offset from right
 	offset[0] = 7*BIT_LEN+17;
 	offset[1] = 0;
@@ -440,7 +405,43 @@ int helping_car(string l_server_ip, vector<int> &port){
 	}
 	
 	in[1] = atoi(in_range.c_str());
-#endif
+	
+#else	//PRIVACY	
+	
+	for (i = 0; i < 2; i++){		
+		if (op[i] == 0){// initiate computation of one pair of intersections			
+			SendData(h_connfd[0], &(R[0].x), sizeof(double));
+			SendData(h_connfd[0], &(R[0].y), sizeof(double));
+			SendData(h_connfd[0], &D[0], sizeof(double));			
+			RecvData(h_connfd[0], &(M[0].x), sizeof(double));
+			RecvData(h_connfd[0], &(M[0].y), sizeof(double));
+	
+		}
+		else if (op[i] == 1){ // compute intersections		
+			RecvData(h_connfd[1], &(R[1].x), sizeof(double));
+			RecvData(h_connfd[1], &(R[1].y), sizeof(double));
+			RecvData(h_connfd[1], &D[1], sizeof(double)); 			
+			M_1 = intersection(R[0], D[0], R[1], D[1]);
+			set_rect(M[1], M_1[1]);			
+			SendData(h_connfd[1], &(M_1[0].x), sizeof(double));
+			SendData(h_connfd[1], &(M_1[0].y), sizeof(double));					
+		}
+	}
+	
+	for (i = 0; i < 2; i++){		
+		if (op[i] == 0){// check which one is valid				
+			RecvData(h_connfd[0], &(R[1].x), sizeof(double));
+			RecvData(h_connfd[0], &(R[1].y), sizeof(double));
+			RecvData(h_connfd[0], &(D[1]), sizeof(double));			
+			in[1] = (int)(inside(M[1], R[1], D[1]));			
+		}
+		else if (op[i] == 1){ // help check validity of the intersections	
+			SendData(h_connfd[1], &(R[0].x), sizeof(double));
+			SendData(h_connfd[1], &(R[0].y), sizeof(double));
+			SendData(h_connfd[1], &(D[0]), sizeof(double));	
+		}
+	}
+#endif //PRIVACY
 
 	for (i = 0; i < 2; i++){		
 		if (op[i] == 0){ // receive validity info									
