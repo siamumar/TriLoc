@@ -38,8 +38,10 @@ void *inside_GC(void*);
 vector <rect> intersection (rect, double, rect, double);
 bool inside (rect, rect, double);
 #endif
+int get_client_ip(int);
+string ip_int2str(int);
 int lost_car(vector<int>&);
-int helping_car(vector<int>&);
+int helping_car(string, vector<int>&);
 
 #endif
 

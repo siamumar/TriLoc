@@ -5,6 +5,8 @@
 #include <unistd.h>
 #include <cmath>
 #include <sys/time.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
 #include <pthread.h>
 #include "CPP_src/tri_loc.h"
 
@@ -147,6 +149,21 @@ bool inside (rect D, rect A, double rA){
 }
 #endif
 
+int get_client_ip(int cli_fd){
+	struct sockaddr_in cli_addr;
+	socklen_t clilen = sizeof(cli_addr);
+	getsockname(cli_fd, (struct sockaddr *)(&cli_addr), &clilen);
+	int client_ip = cli_addr.sin_addr.s_addr;
+	return client_ip;
+}
+
+string ip_int2str(int ip_int){
+	struct in_addr ip_struct;
+    ip_struct.s_addr = ip_int;
+	string ip_string = inet_ntoa(ip_struct);
+	return ip_string;
+}
+
 int lost_car(vector<int> &port){
 	
 	int id;
@@ -164,15 +181,18 @@ int lost_car(vector<int> &port){
 	gettimeofday(&tp, NULL);
 	t0 = (tp.tv_sec)*1000 + (tp.tv_usec)/1000;
 	
-	//provide each car an id and get the port numbers they use to establish server with other cars
+	//provide each car an id and get server ips and port numbers they use to establish connection with other cars
+	vector<int> h_client_ip(3);
 	vector<int> h_port(3);	
 	for (id = 0; id < 3; id++){
 		SendData(connfd[id], &id, sizeof(int));
+		h_client_ip[id] = get_client_ip(connfd[id]);
 		RecvData(connfd[id], &h_port[id], sizeof(int));
 	}
 	
-	//provide each car the port number of its server car
+	//provide each car server ip and port number of its server car
 	for (id = 0; id < 3; id++){
+		SendData(connfd[id], &h_client_ip[(id+2)%3], sizeof(int));
 		SendData(connfd[id], &h_port[(id+2)%3], sizeof(int));
 	}
 	
@@ -210,28 +230,30 @@ int lost_car(vector<int> &port){
 	t1 = (tp.tv_sec)*1000 + ((double)tp.tv_usec)/1000;
 	cout << "total time: " << delta_time << " cc, " << (t1 - t0) << " ms" << endl << endl; 
 	
-	return 0;
-	
+	return 0;	
 }
 
-int helping_car(vector<int> &port){
+int helping_car(string l_server_ip, vector<int> &port){
 	
-	string server_ip = "127.0.0.1";
 	int i;
 	
 	//connect to lost car
 	int connfd;
-	if ((connfd = ClientInit(server_ip.c_str(), port[0])) == -1) {
-      cout << "Cannot connect to " << server_ip << ":" << port[0] << endl;
+	if ((connfd = ClientInit(l_server_ip.c_str(), port[0])) == -1) {
+      cout << "Cannot connect to " << l_server_ip << ":" << port[0] << endl;
       return -1;
     }
 	
-	//get id from lost car, provide port number for its server for other helping car and get port number of the car to which its a client
+	//get id from lost car, provide port number for its server for other helping car and get server ip and port number of the car to which its a client
+	int h_server_ip_int;
+	string h_server_ip;
 	vector<int> h_port(2);
 	h_port[0] = port[1];	
 	int id;
 	RecvData(connfd, &id, sizeof(int));
-	SendData(connfd, &h_port[0], sizeof(int));	
+	SendData(connfd, &h_port[0], sizeof(int));		
+	RecvData(connfd, &h_server_ip_int, sizeof(int));
+	h_server_ip = ip_int2str(h_server_ip_int);
 	RecvData(connfd, &h_port[1], sizeof(int));
 	
 	//establish connection with the two other helping cars
@@ -248,8 +270,8 @@ int helping_car(vector<int> &port){
 			SendData(h_connfd[0], &id, sizeof(int));
 		}
 		else{
-			if ((h_connfd[1] = ClientInit(server_ip.c_str(), h_port[1])) == -1) {
-					cout << "Cannot connect to " << server_ip << ":" << h_port[1] << " with Car " << (id+2)%3 << endl;
+			if ((h_connfd[1] = ClientInit(h_server_ip.c_str(), h_port[1])) == -1) {
+					cout << "Cannot connect to " << h_server_ip << ":" << h_port[1] << " with Car " << (id+2)%3 << endl;
 					return -1;
 				}
 			int other_id;
