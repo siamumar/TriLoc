@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <cstring>
 #include <cstdint>
@@ -38,26 +39,22 @@ void set_rect(rect &R, rect R_1){
 	R.y = R_1.y;
 }
 
-rect get_loc(int id){
-	vector <rect> R(3);
-	R[0].x  = -32;
-	R[0].y  = 108;
-	R[1].x  = -16;
-	R[1].y  = -111;
-	R[2].x  = 109;
-	R[2].y  = -99;
+int get_loc(string loc_data, int id, rect &R, double &D){
+	ifstream loc_file(loc_data);
+	if (!loc_file.is_open()) 
+		return -1;
 	
-	return R[id];
-}
-
-double get_dist(int id){
-	vector <double> D(3);
+	double temp;
+	for (int i = 0; i < id; i++)
+		for (int j = 0; j < 3; j++)
+			loc_file >> temp;
+	loc_file >>  R.x;
+	loc_file >>  R.y;
+	loc_file >>  D;
 	
-	D[0] = 215; 
-	D[1] = 236;
-	D[2] = 183;
+	loc_file.close();
 	
-	return D[id];
+	return 0;
 }
 
 int get_client_ip(int cli_fd){
@@ -82,22 +79,22 @@ void *intersection_GC(void* I){
 	I_data = (int_data*)I;
 	
 	if (I_data->id == 0){
-		cout << "core " << I_data->id << " (Garbler) input:\t" << I_data->input_str_0 << endl;
+		cout << "Core " << I_data->id << " (Garbler) input:\t" << I_data->input_str_0 << endl;
 #if SEQUENTIAL
 		GarbleStr(INTERSECTION_SEQ_SCD, "", "", I_data->input_str_0, "", 3*BIT_LEN+13, I_data->intersection_output_mask, 0, (OutputMode)2, 0, 0, &(I_data->output_str), I_data->h_connfd);
 #else	
 		GarbleStr(INTERSECTION_COMB_SCD, "", "", "", I_data->input_str_0, 1, I_data->intersection_output_mask, 0, (OutputMode)0, 0, 0, &(I_data->output_str), I_data->h_connfd);
 #endif
-		cout << "core " << I_data->id << " (Garbler) output:\t" << I_data->output_str << endl;
+		cout << "Core " << I_data->id << " (Garbler) output:\t" << I_data->output_str << endl;
 	}
 	else {
-		cout << "core " << I_data->id << "(Evaluator) input:\t\t" << I_data->input_str_0 << endl;
+		cout << "Core " << I_data->id << "(Evaluator) input:\t\t" << I_data->input_str_0 << endl;
 #if SEQUENTIAL
 		EvaluateStr(INTERSECTION_SEQ_SCD, "", "", I_data->input_str_0, "", 3*BIT_LEN+13, I_data->intersection_output_mask, 0, (OutputMode)2, 0, 0, &(I_data->output_str), I_data->h_connfd);
 #else	
 		EvaluateStr(INTERSECTION_COMB_SCD, "", "", "", I_data->input_str_0, 1, I_data->intersection_output_mask, 0, (OutputMode)0, 0, 0, &(I_data->output_str), I_data->h_connfd);
 #endif
-		cout << "core " << I_data->id << "(Evaluator) output:\t" << I_data->output_str << endl;
+		cout << "Core " << I_data->id << "(Evaluator) output:\t" << I_data->output_str << endl;
 	}
 	
 	pthread_mutex_lock(&running_mutex);
@@ -113,12 +110,12 @@ void *inside_GC(void* I){
 	string in_range_dummy;
 	
 	if (I_data->id == 0){
-		cout << "core " << I_data->id << " input:\t" << I_data->input_str_1 << endl;
+		cout << "Core " << I_data->id << " input:\t" << I_data->input_str_1 << endl;
 		GarbleStr(INSIDE_SCD, "", "", "", I_data->input_str_1, 1, "1", 0, (OutputMode)0, 0, 0, &(I_data->output_str), I_data->h_connfd);
-		cout << "core " << I_data->id << " output:\t" << I_data->output_str << endl;
+		cout << "Core " << I_data->id << " output:\t" << I_data->output_str << endl;
 	}
 	else {
-		cout << "core " << I_data->id << " input:\t" << I_data->input_str_0 << endl;
+		cout << "Core " << I_data->id << " input:\t" << I_data->input_str_0 << endl;
 		EvaluateStr(INSIDE_SCD, "", "", "", I_data->input_str_0, 1, "1", 0, (OutputMode)0, 0, 0, &in_range_dummy, I_data->h_connfd);
 	}
 	
@@ -221,7 +218,7 @@ int lost_car(vector<int> &port){
 	Q.x = (Q.x - M.x)/3;
 	Q.y = (Q.y - M.y)/3;
 	
-	cout << "\nLocation of lost car:";
+	cout << "\nLocation of lost car: ";
 	print_rect(Q);	
 	
 	for (id = 0; id < 3; id++)
@@ -235,7 +232,7 @@ int lost_car(vector<int> &port){
 	return 0;	
 }
 
-int helping_car(string l_server_ip, vector<int> &port){
+int helping_car(string l_server_ip, vector<int> &port, string loc_data){
 	
 	int i;
 	
@@ -278,7 +275,7 @@ int helping_car(string l_server_ip, vector<int> &port){
 				}
 			int other_id;
 			RecvData(h_connfd[1], &other_id, sizeof(int));
-			cout << "car " << id << " established connection with car " << other_id << endl;
+			cout << "Car " << id << " established connection with car " << other_id << endl;
 			SendData(connfd, &done, sizeof(int));
 		}
 	}
@@ -299,8 +296,13 @@ int helping_car(string l_server_ip, vector<int> &port){
 	double dist; // distance from the lost car
 	vector <rect> intersect(2); // two intersections with two assisting cars (one from each pair of intersection with each car)
 	vector <int> in(2); // whether or not the intersection known to this assisting car forms one vertex of the triangle
-	loc = get_loc(id);
-	dist = get_dist(id);
+	if (get_loc(loc_data, id, loc, dist) < 0){
+		cout << "Error can't open location data file: " << loc_data << endl;
+		return -1;
+	}
+	cout << "\nLocation of assisting car " << id << ": ";
+	print_rect(loc);
+	cout << "distance from lost car: " << dist << endl << endl;
 
 #if PRIVACY	
 	vector<uint64_t> input(3);
@@ -312,7 +314,6 @@ int helping_car(string l_server_ip, vector<int> &port){
 	input_bit_len[1] = BIT_LEN;
 	input_bit_len[2] = BIT_LEN+1;
 	string input_str = formatGCInputString(input, input_bit_len);
-	cout << input_str << endl;	
 	
 	vector <string> output_str_int(2);
 	string in_range, in_range_dummy;

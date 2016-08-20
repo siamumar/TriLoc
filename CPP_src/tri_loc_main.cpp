@@ -22,9 +22,9 @@ int main(int argc, char* argv[]){
 	srand(time(0));  // srand(1);
 	SrandSSE(time(0));  // SrandSSE(1111);
 	
-	
-	vector<int> port(3);
+	string loc_data;
 	string l_server_ip;
+	vector<int> port(3);
 	
 	boost::format fmter("Privacy Preserving Localization \nAllowed options");
 	po::options_description desc(fmter.str());
@@ -33,7 +33,8 @@ int main(int argc, char* argv[]){
 	("lost,l", "the lost car")  //
 	("assisting,a", "an assisting car")  //
 	("ports,p", po::value<vector<int>>(&port)->default_value(vector<int>{1111, 2222, 3333}, "1111, 2222, 3333")->multitoken(), "socket ports")  //
-	("server_ip,s", po::value<string>(&l_server_ip)->default_value("127.0.0.1"), "server ip of lost car");
+	("server_ip,s", po::value<string>(&l_server_ip)->default_value("127.0.0.1"), "server ip of lost car")
+	("data_file,d", po::value<string>(&loc_data)->default_value("../../CPP_src/location_data.txt"), "file containing <x,y> coordinates of the assisting cars and their respective distances from the lost car");
 
 	po::variables_map vm;
 	try {
@@ -65,10 +66,10 @@ int main(int argc, char* argv[]){
 	}
 	
 	else if (vm.count("assisting")){
-		if (port[1] == 0) port[1] = rand()%9000+777;
+		if (port[1] == 0) port[1] = rand()%9000+999;
 		cout << "Connecting to lost car at " << l_server_ip << ":" << port[0] << endl;
 		cout << "Opening port for another assisting car at " << port[1] << endl << endl;
-		helping_car(l_server_ip, port);
+		helping_car(l_server_ip, port, loc_data);
 	}
 }
 

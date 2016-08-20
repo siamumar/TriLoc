@@ -5,7 +5,7 @@
 #include <cstring>
 
 #define PRIVACY 1
-#define SINGLE_THREAD 1
+#define SINGLE_THREAD 0
 #define SEQUENTIAL 1
 
 #define BIT_LEN 8
@@ -29,8 +29,7 @@ typedef struct int_data{
 void print_rect(rect);
 void print_rect(vector<rect>);
 void set_rect(rect&, rect);
-rect get_loc(int);
-double get_dist(int);
+int get_loc(string, int, rect&, double&);
 int get_client_ip(int);
 string ip_int2str(int);
 
@@ -44,7 +43,7 @@ vector <rect> intersection (rect, double, rect, double);
 bool inside (rect, rect, double);
 #endif
 int lost_car(vector<int>&);
-int helping_car(string, vector<int>&);
+int helping_car(string, vector<int>&, string);
 
 #endif
 
