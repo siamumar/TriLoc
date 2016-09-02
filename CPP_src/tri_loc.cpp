@@ -60,7 +60,7 @@ int get_loc(string loc_data, int id, rect &R, double &D){
 int get_client_ip(int cli_fd){
 	struct sockaddr_in cli_addr;
 	socklen_t clilen = sizeof(cli_addr);
-	getsockname(cli_fd, (struct sockaddr *)(&cli_addr), &clilen);
+	getpeername(cli_fd, (struct sockaddr *)(&cli_addr), &clilen);
 	int client_ip = cli_addr.sin_addr.s_addr;
 	return client_ip;
 }
@@ -127,10 +127,8 @@ void *inside_GC(void* I){
 }
 #endif //(!SINGLE_THREAD)
 #else //PRIVACY
-vector <rect> intersection (rect B, double rB, rect C, double rC){
-	
-	vector <rect> E(2);
-	
+vector <rect> intersection (rect B, double rB, rect C, double rC){	
+	vector <rect> E(2);	
 	double p, q, t, s, u, w, z;
 	
 	p = C.x - B.x;
@@ -155,8 +153,7 @@ bool inside (rect D, rect A, double rA){
 	bool in;
 	double H;
 	
-	H = ((D.x - A.x)*(D.x - A.x) + (D.y - A.y)*(D.y - A.y));
-	
+	H = ((D.x - A.x)*(D.x - A.x) + (D.y - A.y)*(D.y - A.y));	
 	in = (H <= rA*rA);
 	
 	return in;
@@ -302,7 +299,7 @@ int helping_car(string l_server_ip, vector<int> &port, string loc_data){
 	}
 	cout << "\nLocation of assisting car " << id << ": ";
 	print_rect(loc);
-	cout << "distance from lost car: " << dist << endl << endl;
+	cout << "Distance from lost car: " << dist << endl << endl;
 
 #if PRIVACY	
 	vector<uint64_t> input(3);
