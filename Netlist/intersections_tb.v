@@ -26,7 +26,6 @@ parameter N = 8;
 	);
 
 	initial begin
-		// Initialize Inputs
 		xK = -16;
 		yK = -111;
 		xL = 109;
