@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module intersections_TG #(parameter N = 8)(
+module intersections_comb_TG #(parameter N = 8)(
 	input	[3*N:0]		g_input,
 	input	[3*N:0]		e_input,
 	output	[4*N+7:0]	o
@@ -23,7 +23,7 @@ module intersections_TG #(parameter N = 8)(
 	assign	o[N+1:0]	   	=	y2P;
 	
 
-	intersections #(.N(N)) intersections (
+	intersections_comb #(.N(N)) intersections_comb (
 		.xK(xK),
 		.yK(yK),
 		.xL(xL),

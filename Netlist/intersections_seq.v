@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module intersections #(parameter N = 8)(
+module intersections_seq #(parameter N = 8)(
 	input									clk,
 	input									rst,
 	input						[3*N:0]		g_init,

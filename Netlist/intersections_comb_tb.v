@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module intersections_tb;
+module intersections_comb_tb;
 
 parameter N = 8;
 
@@ -12,7 +12,7 @@ parameter N = 8;
 	wire	signed	[N+1:0]	x1P, y1P, x2P, y2P;
 	
 	// Instantiate the Unit Under Test (UUT)
-	intersections #(.N(N)) uut (
+	intersections_comb #(.N(N)) uut (
 		.xK(xK),
 		.yK(yK),
 		.xL(xL),

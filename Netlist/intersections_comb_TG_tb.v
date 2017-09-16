@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module intersections_TG_tb;
+module intersections_comb_TG_tb;
 
 	parameter N = 8;
 
@@ -11,7 +11,7 @@ module intersections_TG_tb;
 	// Outputs	
 	wire	[4*N+7:0]	o;
 	
-	intersections_TG #(.N(N)) uut(
+	intersections_comb_TG #(.N(N)) uut(
 		.g_input(g_input),
 		.e_input(e_input),
 		.o(o)

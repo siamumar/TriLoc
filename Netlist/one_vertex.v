@@ -8,7 +8,7 @@ module one_vertex #(parameter N = 8)(
 
 	wire	signed	[N+1:0]	x1S, y1S, x2S, y2S;
 
-	intersections #(.N(N)) intersectionsUV(
+	intersections_comb #(.N(N)) intersectionsUV(
 		.xK(xU),
 		.yK(yU),
 		.xL(xV),

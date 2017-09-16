@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module intersections #(parameter N = 8)(
+module intersections_comb #(parameter N = 8)(
 	input	signed	[N-1:0]	xK, yK, xL, yL,
 	input	signed	[N:0]	rK, rL,
 	output	signed	[N+1:0]	x1P, y1P, x2P, y2P    
