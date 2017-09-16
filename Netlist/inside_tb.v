@@ -23,18 +23,6 @@ parameter N = 8;
 	);
 
 	initial begin
-		// Initialize Inputs
-		xP = 0;
-		yP = 0;
-		xJ = 0;
-		yJ = 0;
-		rJ = 0;
-
-		// Wait 100 ns for global reset to finish
-		#100;
-        
-		// Jdd stimulus here
-		
 		xP = 151;
 		yP = -276;
 		xJ = -32;
@@ -56,8 +44,6 @@ parameter N = 8;
 		xJ = -16;
 		yJ = -111;
 		rJ = 236;
-		
-
 	end
       
 endmodule
