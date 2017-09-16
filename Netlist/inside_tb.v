@@ -1,93 +1,61 @@
 `timescale 1ns / 1ps
 
-////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer:
-//
-// Create Date:   12:42:57 09/11/2015
-// Design Name:   decision
-// Module Name:   C:/Users/Rice/Dropbox/TriangleLocalization/NetList/decision/decision_tb.v
-// Project Name:  decision
-// Target Device:  
-// Tool versions:  
-// Description: 
-//
-// Verilog Test Fixture created by ISE for module: decision
-//
-// Dependencies:
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-////////////////////////////////////////////////////////////////////////////////
-
 module inside_tb;
 
 parameter N = 8;
 
-	// Inputs
-	wire					[7*N+16:0]	g_input;
-	wire					[3*N:0]		e_input;
-	
-	reg [4*N+9:0] xD;
-	reg [3*N+6:0] yD;
-	reg [N-1:0] xA;
-	reg [N-1:0] yA;
-	reg [N:0] rA;
+	// Inputs	
+	reg [N+1:0]	xP, yP;
+	reg [N-1:0]	xJ, yJ;
+	reg [N:0]	rJ;
 
 	// Outputs
-	wire 									o;
-	
-	wire in_range;
-	
-	assign 	g_input[7*N+16:3*N+7]	=	xD;	
-	assign 	g_input[3*N+6:0]		=	yD;		
-	assign	e_input[3*N:2*N+1]		=	xA;	
-	assign	e_input[2*N:N+1]		=	yA;	
-	assign	e_input[N:0]			=	rA;	
-	assign	in_range				=	o;	
+	wire			in_range;
 
 	// Instantiate the Unit Under Test (UUT)
 	inside_ #(.N(N)) uut (
-		.g_input(g_input),
-		.e_input(e_input),
-		.o(o)	);
+		.xP(xP),
+		.yP(yP),
+		.xJ(xJ),
+		.yJ(yJ),
+		.rJ(rJ),
+		.in_range(in_range)
+	);
 
 	initial begin
 		// Initialize Inputs
-		xD = 0;
-		yD = 0;
-		xA = 0;
-		yA = 0;
-		rA = 0;
+		xP = 0;
+		yP = 0;
+		xJ = 0;
+		yJ = 0;
+		rJ = 0;
 
 		// Wait 100 ns for global reset to finish
 		#100;
         
-		// Add stimulus here
+		// Jdd stimulus here
 		
-		xD = 151;
-		yD = -276;
-		xA = -32;
-		yA = 108;
-		rA = 215;
-		
-		#100;
-		
-		xD = -231;
-		yD = 5;
-		xA = 109;
-		yA = -99;
-		rA = 183;
+		xP = 151;
+		yP = -276;
+		xJ = -32;
+		yJ = 108;
+		rJ = 215;
 		
 		#100;
 		
-		xD = -72;
-		yD = -102;
-		xA = -16;
-		yA = -111;
-		rA = 236;
+		xP = -231;
+		yP = 5;
+		xJ = 109;
+		yJ = -99;
+		rJ = 183;
+		
+		#100;
+		
+		xP = -72;
+		yP = -102;
+		xJ = -16;
+		yJ = -111;
+		rJ = 236;
 		
 
 	end
