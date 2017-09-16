@@ -3,8 +3,10 @@
 module TriLoc #(parameter N = 8)(
 	input	signed	[N-1:0]	xA, yA, xB, yB, xC, yC,
 	input	signed	[N:0]	rA, rB, rC,
-	output	signed	[N+1:0]	xD, yD,	xE, yE,	xF, yF  
+	output 	signed	[N+3:0]	xM, yM
 );
+
+	wire	signed	[N+1:0]	xD, yD,	xE, yE,	xF, yF;  
 
 	one_vertex #(.N(N)) vertex_D (
 		.xU(xB),
@@ -46,6 +48,17 @@ module TriLoc #(parameter N = 8)(
 		.rW(rC),
 		.xT(xF),
 		.yT(yF)
+	);
+	
+	median_x_3 #(.N(N)) median_x_3(
+		.xD(xD),
+		.yD(yD),
+		.xE(xE),
+		.yE(yE),
+		.xF(xF),
+		.yF(yF),
+		.xM(xM),
+		.yM(yM)
 	);
 	
 endmodule

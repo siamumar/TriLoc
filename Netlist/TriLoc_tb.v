@@ -9,7 +9,7 @@ parameter N = 8;
 	reg [N:0]	rA, rB, rC;
 
 	// Outputs	
-	wire	signed	[N+1:0]	xD, yD,	xE, yE,	xF, yF;
+	wire	signed	[N+3:0]	xM, yM;
 	
 	// Instantiate the Unit Under Test (UUT)
 	TriLoc #(.N(N)) uut (
@@ -22,13 +22,14 @@ parameter N = 8;
 		.rA(rA),
 		.rB(rB),
 		.rC(rC),
-		.xD(xD),
-		.yD(yD),
-		.xE(xE),
-		.yE(yE),
-		.xF(xF),
-		.yF(yF)
+		.xM(xM),
+		.yM(yM)
 	);
+	
+	wire signed	[N+3:0]	xM_3, yM_3;
+	
+	assign xM_3 = xM/3;
+	assign yM_3 = yM/3;
 
 	initial begin
 		// Initialize Inputs
