@@ -27,7 +27,7 @@ module TriLoc_BMR #(parameter N = 8)(
 	assign	o[N+3:0]		=	yM;
 	
 
-	TriLoc #(.N(N)) TriLoc (
+	TriLoc #(.N(N)) T (
 		.xA(xA),
 		.yA(yA),
 		.xB(xB),

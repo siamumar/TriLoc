@@ -1,0 +1,6 @@
+read_verilog ../TriLoc_BMR.v ../TriLoc.v ../syn/one_vertex_8.v ../syn/median_x_3_8.v
+hierarchy  -top TriLoc_BMR
+setattr -mod -set blackbox 1 TriLoc_BMR 
+flatten TriLoc_BMR
+abc -liberty ../../../circuit_synthesis/lib/asic_cell_yosys_extended.lib -script ../../../circuit_synthesis/lib/script.abc
+write_verilog -noattr -blackboxes ../syn/TriLoc_BMR_8.v

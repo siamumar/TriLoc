@@ -9,4 +9,13 @@ fi
 if [ $3 == "1" ]; then
 	design_vision -no_gui -f inside_TG_syn.dcsh
 fi
+if [ $4 == "1" ]; then
+	design_vision -no_gui -f one_vertex_syn.dcshh
+fi
+if [ $5 == "1" ]; then
+	design_vision -no_gui -f median_x_3_syn.dcsh
+fi
+if [ $6 == "1" ]; then
+	yosys -s TriLoc_BMR_syn.yos
+fi
 rm *.pvl *.syn *.mr *.log *.svf
