@@ -9,7 +9,7 @@ alib-52/
 *.o
 *.cl
 *.dat
-*..scd.map
+*.scd.map
 *~
 .~*#
 .nfs*
