@@ -314,7 +314,7 @@ int helping_car(string l_server_ip, vector<int> &port, string loc_data){
 	
 	vector <string> output_str_int(2);
 	string in_range, in_range_dummy;
-	string intersection_output_mask = formatGCOutputMask(7*BIT_LEN+17, 7*BIT_LEN+17, true);	
+	string intersection_output_mask = formatGCOutputMask(2*BIT_LEN+4, 2*BIT_LEN+4, true);	
 
 #if SINGLE_THREAD		
 	for (i = 0; i < 2; i++){		
@@ -390,12 +390,12 @@ int helping_car(string l_server_ip, vector<int> &port, string loc_data){
 #endif	//SINGLE_THREAD	
 
 	vector<uint16_t> offset(2); //offset from right
-	offset[0] = 7*BIT_LEN+17;
+	offset[0] = 2*BIT_LEN+4;
 	offset[1] = 0;
 	vector<int64_t> output(2);
 	vector<uint16_t> ourput_bit_len(2);
-	ourput_bit_len[0] = 4*BIT_LEN+10;
-	ourput_bit_len[1] = 3*BIT_LEN+7;
+	ourput_bit_len[0] = BIT_LEN+2;
+	ourput_bit_len[1] = BIT_LEN+2;
 	for (i = 0; i < 2; i++){
 		parseGCOutputString(output, output_str_int[i], ourput_bit_len, offset[i]);
 		intersect[i].x = output[0];
