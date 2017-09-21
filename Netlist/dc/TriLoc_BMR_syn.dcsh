@@ -1,0 +1,13 @@
+read_file -format verilog ../syn/dummy_cells.v
+read_file -format verilog ../syn/median_x_3_8.v
+read_file -format verilog ../syn/one_vertex_8.v
+read_file -format verilog ../TriLoc.v
+read_file -format verilog ../TriLoc_BMR.v
+current_instance /TriLoc_BMR/T
+ungroup D
+ungroup E
+ungroup F
+ungroup M
+current_instance /TriLoc_BMR
+ungroup T
+write -format verilog -output ../syn/TriLoc_BMR_8_dc.v

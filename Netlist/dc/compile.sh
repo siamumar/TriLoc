@@ -16,6 +16,6 @@ if [ $5 == "1" ]; then
 	design_vision -no_gui -f median_x_3_syn.dcsh
 fi
 if [ $6 == "1" ]; then
-	yosys -s TriLoc_BMR_syn.yos
+	design_vision -no_gui -f TriLoc_BMR_syn.dcsh
 fi
 rm *.pvl *.syn *.mr *.log *.svf
