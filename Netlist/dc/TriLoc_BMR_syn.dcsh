@@ -10,4 +10,5 @@ ungroup F
 ungroup M
 current_instance /TriLoc_BMR
 ungroup T
-write -format verilog -output ../syn/TriLoc_BMR_8_dc.v
+write -format verilog -output ../syn/TriLoc_BMR_8.v
+exit
