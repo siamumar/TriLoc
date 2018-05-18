@@ -1,7 +1,7 @@
-set search_path [list . ../../../TinyGarbleCircuitSynthesis/SynthesisLibrary/lib/dff_full/]
-set target_library ../../../TinyGarbleCircuitSynthesis/SynthesisLibrary/lib/dff_full/dff_full.db
-set link_library ../../../TinyGarbleCircuitSynthesis/SynthesisLibrary/lib/dff_full/dff_full.db
-set symbol_library [concat ../../../TinyGarbleCircuitSynthesis/SynthesisLibrary/lib/generic.sdb]
+set search_path [list . ../../../TinyGarbleCircuitSynthesis/SynthesisLibrary/lib_BMR/dff_full/]
+set target_library ../../../TinyGarbleCircuitSynthesis/SynthesisLibrary/lib_BMR/dff_full/dff_full.db
+set link_library ../../../TinyGarbleCircuitSynthesis/SynthesisLibrary/lib_BMR/dff_full/dff_full.db
+set symbol_library [concat ../../../TinyGarbleCircuitSynthesis/SynthesisLibrary/lib_BMR/generic.sdb]
 set hdlin_while_loop_iterations 2049
 
 analyze -format verilog {../../../TinyGarbleCircuitSynthesis/SynthesisLibrary/syn_lib/MUX.v ../../../TinyGarbleCircuitSynthesis/SynthesisLibrary/syn_lib/FA.v ../../../TinyGarbleCircuitSynthesis/SynthesisLibrary/syn_lib/ADD.v ../../../TinyGarbleCircuitSynthesis/SynthesisLibrary/syn_lib/ADD_.v ../../../TinyGarbleCircuitSynthesis/SynthesisLibrary/syn_lib/SUB.v  ../../../TinyGarbleCircuitSynthesis/SynthesisLibrary/syn_lib/SUB_.v   ../../../TinyGarbleCircuitSynthesis/SynthesisLibrary/syn_lib/TwosComplement.v ../../../TinyGarbleCircuitSynthesis/SynthesisLibrary/syn_lib/MULT.v ../../../TinyGarbleCircuitSynthesis/SynthesisLibrary/syn_lib/MULT_.v  ../../../TinyGarbleCircuitSynthesis/SynthesisLibrary/syn_lib/DIV.v ../../../TinyGarbleCircuitSynthesis/SynthesisLibrary/syn_lib/DIV_.v ../../../TinyGarbleCircuitSynthesis/SynthesisLibrary/syn_lib/COMP.v ../../../TinyGarbleCircuitSynthesis/SynthesisLibrary/syn_lib/COUNT.v ../../../TinyGarbleCircuitSynthesis/SynthesisLibrary/syn_lib/square_root_comb.v }
