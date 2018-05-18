@@ -54,7 +54,7 @@ Intersection and Inside netlists are used in the GC based protocol and the TriLo
 
 To compile the Verilog files to netlists with Synopsys DC, run inside Netlist/dc/
 ```
-	./compile.sh $1 $2 $3 $4 $5 $6
+./compile.sh $1 $2 $3 $4 $5 $6
 ```
 $1, $2,$3, $4, $5, $6 are flags for <i>intersections_seq.v</i>, <i>intersections_comb.v</i>, <i>inside.v</i>, <i>one_vertex.v</i>, <i>median_x_3.v</i>, <i>TriLoc_BMR.v</i> respectively. Set them to 1 to compile the corresponding Verilog files, otherwise set them to 0. 
 
