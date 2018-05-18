@@ -27,3 +27,4 @@ transcript
 *.wlf
 syn/*.map
 bin/
+Netlist/TriLoc_Vivado/
