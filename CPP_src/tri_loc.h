@@ -10,9 +10,9 @@
 
 #define BIT_LEN 8
 	
-#define INTERSECTION_SEQ_SCD "../../Netlist/syn/intersections_seq_8.scd"	
-#define INTERSECTION_COMB_SCD "../../Netlist/syn/intersections_comb_TG_8.scd"
-#define INSIDE_SCD "../../Netlist/syn/inside_TG_8.scd"
+#define INTERSECTION_SEQ_SCD "Netlist/syn/intersections_seq_8.scd"	
+#define INTERSECTION_COMB_SCD "Netlist/syn/intersections_comb_TG_8.scd"
+#define INSIDE_SCD "Netlist/syn/inside_TG_8.scd"
 
 using namespace std;
 

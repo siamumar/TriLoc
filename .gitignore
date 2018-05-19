@@ -10,6 +10,7 @@ alib-52/
 *.cl
 *.dat
 *.scd.map
+*.bmr.map
 *~
 .~*#
 .nfs*

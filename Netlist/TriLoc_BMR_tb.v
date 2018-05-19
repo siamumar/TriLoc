@@ -52,7 +52,9 @@ module TriLoc_BMR_tb;
 		rC = 215;
 		
 		#100;
-		$display("%d\t%d", xM_3, yM_3);
+		$display("%d\t%d\n", xM_3, yM_3);
+        $display("%b\n%b\n%b\n%b", p_input[2*N+1:0], p_input[9*N+2:7*N+3], p_input[7*N+2:5*N+3],p_input[5*N+2:3*N+3]);
+        $display("%b", o);
 	end
 	  
 endmodule

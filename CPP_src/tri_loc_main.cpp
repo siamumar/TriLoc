@@ -34,7 +34,7 @@ int main(int argc, char* argv[]){
 	("assisting,a", "an assisting car")  //
 	("ports,p", po::value<vector<int>>(&port)->default_value(vector<int>{1111, 2222, 3333}, "1111, 2222, 3333")->multitoken(), "socket ports")  //
 	("server_ip,s", po::value<string>(&l_server_ip)->default_value("127.0.0.1"), "server ip of lost car")
-	("data_file,d", po::value<string>(&loc_data)->default_value("../../CPP_src/location_data.txt"), "file containing <x,y> coordinates of the assisting cars and their respective distances from the lost car");
+	("data_file,d", po::value<string>(&loc_data)->default_value("test_data/location_data.txt"), "file containing <x,y> coordinates of the assisting cars and their respective distances from the lost car");
 
 	po::variables_map vm;
 	try {
