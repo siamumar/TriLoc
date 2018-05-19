@@ -12,18 +12,26 @@ Then compile by first configuring CMake and then calling `make` inside the `bin`
   $ ./configure
   $ cd bin
   $ make
+  cd CPP_src
 ```
-Usage for the generated binary file `bin\CPP_src\TriLoc` is as follows
+Usage for the generated binary file `TriLoc` is as follows
 ```
   -h [ --help ]                           produce help message
   -l [ --lost ]                           the lost car
   -a [ --assisting ]                      an assisting car
-  -p [ --ports ] arg (=1111, 2222, 3333)  socket ports
+  -p [ --ports ] arg (=1111, 2222, 3333)  socket ports, the lost car opens 3 ports, each assisting car connects to one of them
   -s [ --server_ip ] arg (=127.0.0.1)     server ip of lost car
   -d [ --data_file ] arg (=../../CPP_src/location_data.txt)
                                           file containing <x,y> coordinates of the assisting cars and their respective distances from the lost car
 ```
 We assume that all the assisting cars know their locations and respective distances from the lost car and read them from the location data file. 
+Example run
+```
+Terminal 1: ./TriLoc -l -p 1111 2222 3333
+Terminal 2: ./TriLoc -a -p 1111
+Terminal 3: ./TriLoc -a -p 2222
+Terminal 4: ./TriLoc -a -p 3333
+```
 
 ## Simulation
 ### MATLAB Simulation
