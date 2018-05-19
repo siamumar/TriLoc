@@ -12,18 +12,34 @@ Then compile by first configuring CMake and then calling `make` inside the `bin`
   $ ./configure
   $ cd bin
   $ make
+  $ cd ..
 ```
-Usage for the generated binary file `bin\CPP_src\TriLoc` is as follows
+Usage for the generated binary file `TriLoc` is as follows
 ```
   -h [ --help ]                           produce help message
   -l [ --lost ]                           the lost car
   -a [ --assisting ]                      an assisting car
-  -p [ --ports ] arg (=1111, 2222, 3333)  socket ports
+  -p [ --ports ] arg (=1111, 2222, 3333)  socket ports, the lost car opens 3 ports, each assisting car connects to one of them
   -s [ --server_ip ] arg (=127.0.0.1)     server ip of lost car
-  -d [ --data_file ] arg (=../../CPP_src/location_data.txt)
+  -d [ --data_file ] arg (=../../test_data/location_data.txt)
                                           file containing <x,y> coordinates of the assisting cars and their respective distances from the lost car
 ```
 We assume that all the assisting cars know their locations and respective distances from the lost car and read them from the location data file. 
+
+Example run: GC. It uses the default location data file at test_data/location_data.txt.
+```
+Terminal 1: $ bin/CPP_src//TriLoc -l -p 1111 2222 3333
+Terminal 2: $ bin/CPP_src//TriLoc -a -p 1111
+Terminal 3: $ bin/CPP_src//TriLoc -a -p 2222
+Terminal 4: $ bin/CPP_src//TriLoc -a -p 3333
+```
+Example run: BMR. It uses the default location data files at test_data.
+```
+Terminal 1: $ ../Semi-Honest-BMR/BMRPassive.out 0 Netlist/syn/TriLoc_BMR_8.bmr test_data/lost.txt test_data/ip.txt 43739841701238781571456410093f43 0
+Terminal 1: $ ../Semi-Honest-BMR/BMRPassive.out 1 Netlist/syn/TriLoc_BMR_8.bmr test_data/assisting1.txt test_data/ip.txt  43739841701238781571456410093f43 0
+Terminal 1: $ ../Semi-Honest-BMR/BMRPassive.out 2 Netlist/syn/TriLoc_BMR_8.bmr test_data/assisting2.txt test_data/ip.txt  43739841701238781571456410093f43 0
+Terminal 1: $ ../Semi-Honest-BMR/BMRPassive.out 3 Netlist/syn/TriLoc_BMR_8.bmr test_data/assisting3.txt test_data/ip.txt  43739841701238781571456410093f43 0
+```
 
 ## Simulation
 ### MATLAB Simulation
@@ -54,17 +70,23 @@ Intersection and Inside netlists are used in the GC based protocol and the TriLo
 
 To compile the Verilog files to netlists with Synopsys DC, run inside Netlist/dc/
 ```
-./compile.sh $1 $2 $3 $4 $5 $6
+$ ./compile.sh $1 $2 $3 $4 $5 $6
 ```
 $1, $2,$3, $4, $5, $6 are flags for <i>intersections_seq.v</i>, <i>intersections_comb.v</i>, <i>inside.v</i>, <i>one_vertex.v</i>, <i>median_x_3.v</i>, <i>TriLoc_BMR.v</i> respectively. Set them to 1 to compile the corresponding Verilog files, otherwise set them to 0. 
 
 To compile the TriLoc code to netlists with Yosys, run inside Netlist/dc/
 ```
-yosys -s TriLoc_BMR_syn.yos
+$ yosys -s TriLoc_BMR_syn.yos
 ```
 
-To generate the SCD files required by TinyGarble call `V2SCD_Main` as described in [TinyGarbleCircuitSynthesis](https://github.com/siamumar/TinyGarbleCircuitSynthesis.git)/Verilog2SCD. 
-To generate the circuit file required by BMR call `V2BMR_Main` as described in [TinyGarbleCircuitSynthesis](https://github.com/siamumar/TinyGarbleCircuitSynthesis.git)/Verilog2BMR. 
+To generate the SCD files required by TinyGarble call `V2SCD_Main` in [TinyGarbleCircuitSynthesis](https://github.com/siamumar/TinyGarbleCircuitSynthesis.git)/Verilog2SCD. 
+```
+$ ../TinyGarbleCircuitSynthesis/Verilog2SCD/bin/V2SCD_Main -i Netlist/syn/<file>.v -o Netlist/syn/<file>.scd --log2std
+```
+To generate the circuit file required by BMR call `V2BMR_Main` in [TinyGarbleCircuitSynthesis](https://github.com/siamumar/TinyGarbleCircuitSynthesis.git)/Verilog2BMR. 
+```
+$ ../TinyGarbleCircuitSynthesis/Verilog2BMR/bin/V2BMR_Main -i Netlist/syn/TriLoc_BMR_8.v -b Netlist/syn/TriLoc_BMR_8.bmr -p 16 16 16 27 --log2std
+```
 
 The bit length can be changed by changing the parameter `N`. Also set the macros accordingly in `CPP_src\tri_loc.h`. Netlists and SCD files with bit length 8 is already provided inside the `Netlist\syn` directory.
 
