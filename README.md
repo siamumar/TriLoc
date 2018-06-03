@@ -36,9 +36,9 @@ Terminal 4: $ bin/CPP_src//TriLoc -a -p 3333
 Example run: BMR. It uses the default location data files at test_data.
 ```
 Terminal 1: $ ../Semi-Honest-BMR/BMRPassive.out 0 Netlist/syn/TriLoc_BMR_8.bmr test_data/lost.txt test_data/ip.txt 43739841701238781571456410093f43 0
-Terminal 1: $ ../Semi-Honest-BMR/BMRPassive.out 1 Netlist/syn/TriLoc_BMR_8.bmr test_data/assisting1.txt test_data/ip.txt  43739841701238781571456410093f43 0
-Terminal 1: $ ../Semi-Honest-BMR/BMRPassive.out 2 Netlist/syn/TriLoc_BMR_8.bmr test_data/assisting2.txt test_data/ip.txt  43739841701238781571456410093f43 0
-Terminal 1: $ ../Semi-Honest-BMR/BMRPassive.out 3 Netlist/syn/TriLoc_BMR_8.bmr test_data/assisting3.txt test_data/ip.txt  43739841701238781571456410093f43 0
+Terminal 2: $ ../Semi-Honest-BMR/BMRPassive.out 1 Netlist/syn/TriLoc_BMR_8.bmr test_data/assisting1.txt test_data/ip.txt  43739841701238781571456410093f43 0
+Terminal 3: $ ../Semi-Honest-BMR/BMRPassive.out 2 Netlist/syn/TriLoc_BMR_8.bmr test_data/assisting2.txt test_data/ip.txt  43739841701238781571456410093f43 0
+Terminal 4: $ ../Semi-Honest-BMR/BMRPassive.out 3 Netlist/syn/TriLoc_BMR_8.bmr test_data/assisting3.txt test_data/ip.txt  43739841701238781571456410093f43 0
 ```
 
 ## Simulation
